@@ -1,0 +1,864 @@
+@import url('https://fonts.googleapis.com/css2?family=SF+Pro+Display:wght@100;200;300;400;500;600;700;800;900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* SIANI Authentic Sunset Design System - From SIANI's Image */
+:root {
+  /* Exact colors from SIANI's sunset image */
+  --siani-golden-hour: #FAC358;
+  --siani-ember: #DD541C;
+  --siani-rose-dust: #C65F58;
+  --siani-cream: #EDCFB9;
+  --siani-blush: #D4AAB3;
+  
+  /* Enhanced gradient colors for depth */
+  --siani-gradient-start: #2A1810;
+  --siani-gradient-mid: #8B4513;
+  --siani-gradient-end: #DD541C;
+  
+  /* Accent colors for states */
+  --siani-success: #4A5D23;
+  --siani-warning: #FAC358;
+  --siani-info: #6B6B6B;
+  
+  /* Opacity variants for glassmorphism */
+  --siani-glass-dark: rgba(42, 24, 16, 0.95);
+  --siani-glass-medium: rgba(250, 195, 88, 0.12);
+  --siani-glass-light: rgba(237, 207, 185, 0.08);
+  
+  /* Text colors with better contrast */
+  --text-primary: #EDCFB9;
+  --text-secondary: rgba(237, 207, 185, 0.85);
+  --text-muted: rgba(237, 207, 185, 0.65);
+  --text-accent: #FAC358;
+}
+
+/* Full-screen mobile app styles */
+html, body {
+  height: 100vh;
+  height: 100dvh; /* Dynamic viewport height for mobile */
+  width: 100vw;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  -webkit-overflow-scrolling: touch;
+  overscroll-behavior: none;
+  -webkit-tap-highlight-color: transparent;
+  background: #000;
+  /* Mobile viewport meta support */
+  -webkit-text-size-adjust: 100%;
+  -ms-text-size-adjust: 100%;
+}
+
+#root {
+  height: 100vh;
+  height: 100dvh;
+  width: 100vw;
+  overflow: hidden;
+  position: relative;
+  /* Ensure all interactions work */
+  pointer-events: auto;
+  touch-action: auto;
+}
+
+/* Hide Safari UI elements and handle safe areas */
+@supports (-webkit-appearance: none) {
+  .safe-area-padding {
+    padding-top: env(safe-area-inset-top);
+    padding-bottom: env(safe-area-inset-bottom);
+    padding-left: env(safe-area-inset-left);
+    padding-right: env(safe-area-inset-right);
+  }
+}
+
+/* Full viewport coverage */
+.full-bleed {
+  width: 100vw;
+  height: 100vh;
+  height: 100dvh;
+  margin: 0;
+  padding: 0;
+  position: relative;
+  /* Ensure all interactions work */
+  pointer-events: auto;
+  touch-action: auto;
+}
+
+/* Prevent overscroll */
+.overscroll-none {
+  overscroll-behavior: none;
+  -webkit-overflow-scrolling: touch;
+}
+
+/* Basic mobile touch support */
+* {
+  -webkit-tap-highlight-color: transparent;
+}
+
+button {
+  touch-action: manipulation;
+}
+
+/* Hide scrollbars while maintaining touch scrolling */
+.scrollbar-hide {
+  -ms-overflow-style: none;  /* Internet Explorer 10+ */
+  scrollbar-width: none;  /* Firefox */
+  overflow: -moz-scrollbars-none;  /* Firefox */
+}
+.scrollbar-hide::-webkit-scrollbar { 
+  display: none;  /* Safari and Chrome */
+  width: 0;
+  height: 0;
+}
+
+/* Enhanced touch scrolling for mobile */
+.touch-scroll {
+  -webkit-overflow-scrolling: touch;
+  scroll-behavior: smooth;
+  overscroll-behavior-x: contain;
+}
+
+/* Only prevent text selection on non-interactive elements */
+button, .button, [role="button"] {
+  -webkit-user-select: none;
+  user-select: none;
+}
+
+/* Allow normal interactions for inputs and interactive elements */
+input, textarea, select, [contenteditable] {
+  -webkit-user-select: text;
+  user-select: text;
+  -webkit-touch-callout: default;
+}
+
+/* Safe area utilities */
+.safe-area-bottom {
+  padding-bottom: env(safe-area-inset-bottom);
+}
+
+.safe-area-top {
+  padding-top: env(safe-area-inset-top);
+}
+
+/* Improved scrolling for mobile */
+.mobile-scroll {
+  -webkit-overflow-scrolling: touch;
+  overscroll-behavior: none;
+  scroll-behavior: smooth;
+}
+
+/* Swipe gesture animations */
+.swipe-transition {
+  transition: transform 0.3s cubic-bezier(0.4, 0.0, 0.2, 1);
+}
+
+.swipe-active {
+  transform: translateX(-20px);
+  opacity: 0.8;
+}
+
+/* Enhanced touch interactions for buttons only */
+.touch-responsive {
+  touch-action: manipulation;
+}
+
+:root {
+  --background: hsl(0, 0%, 0%);
+  --foreground: hsl(0, 0%, 100%);
+  --muted: hsl(0, 0%, 5%);
+  --muted-foreground: hsl(0, 0%, 65%);
+  --popover: hsl(0, 0%, 2%);
+  --popover-foreground: hsl(0, 0%, 100%);
+  --card: hsl(0, 0%, 2%);
+  --card-foreground: hsl(0, 0%, 100%);
+  --border: hsl(0, 0%, 8%);
+  --input: hsl(0, 0%, 6%);
+  --primary: hsl(0, 0%, 100%);
+  --primary-foreground: hsl(0, 0%, 0%);
+  --secondary: hsl(0, 0%, 8%);
+  --secondary-foreground: hsl(0, 0%, 100%);
+  --accent: hsl(210, 40%, 98%);
+  --accent-foreground: hsl(0, 0%, 0%);
+  --destructive: hsl(0, 84%, 60%);
+  --destructive-foreground: hsl(0, 0%, 98%);
+  --ring: hsl(212, 100%, 50%);
+  --radius: 12px;
+  
+  /* SIANI Authentic Sunset Colors - From Reference Images */
+  
+  /* SIANI's Authentic Sunset Colors - Exact Match */
+  --golden-hour: #FAC358;
+  --ember: #DD541C;
+  --rose-dust: #C65F58;
+  --cream: #EDCFB9;
+  --blush: #D4AAB3;
+  
+  /* Glass Materials (using SIANI's colors) */
+  --glass-light: rgba(42, 24, 16, 0.08);
+  --glass-medium: rgba(250, 195, 88, 0.08);
+  --glass-strong: rgba(221, 84, 28, 0.06);
+  
+  /* Glow Effects (using SIANI's colors) */
+  --glow-warm: 0 8px 32px rgba(250, 195, 88, 0.15);
+  --glow-sunset: 0 12px 40px rgba(237, 207, 185, 0.08);
+  --glow-ember: 0 6px 24px rgba(221, 84, 28, 0.12);
+  
+  /* Surface Layers (using SIANI's colors) */
+  --surface-base: rgba(42, 24, 16, 0.04);
+  --surface-elevated: rgba(250, 195, 88, 0.04);
+  
+  /* Borders (using SIANI's colors) */
+  --border-subtle: rgba(250, 195, 88, 0.15);
+  --border-medium: rgba(221, 84, 28, 0.15);
+  
+  /* Typography (using SIANI's colors) */
+  --text-primary: var(--cream);
+  --text-secondary: rgba(237, 207, 185, 0.85);
+  --text-tertiary: rgba(237, 207, 185, 0.65);
+  --text-muted: rgba(198, 95, 88, 0.60);
+  
+  /* Gradients (using SIANI's authentic sunset colors) */
+  --primary-gradient: linear-gradient(135deg, var(--golden-hour) 0%, var(--ember) 100%);
+  --surface-gradient: linear-gradient(135deg, #2A1810 0%, #1A1A1A 100%);
+  --hero-gradient: radial-gradient(ellipse at center, var(--golden-hour) 0%, var(--ember) 40%, var(--rose-dust) 70%, #2A1810 100%);
+  --accent-gradient: linear-gradient(45deg, var(--rose-dust) 0%, var(--cream) 100%);
+}
+
+/* Luxury Design Components */
+.luxury-card {
+  background: var(--glass-light);
+  backdrop-filter: blur(20px);
+  border: 1px solid var(--border-subtle);
+  border-radius: 24px;
+  box-shadow: var(--glow-warm);
+}
+
+.luxury-button {
+  background: var(--primary-gradient);
+  border: none;
+  border-radius: 16px;
+  color: var(--midnight);
+  font-weight: 600;
+  letter-spacing: 0.5px;
+  box-shadow: var(--glow-sunset);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.luxury-button:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--glow-horizon);
+}
+
+.luxury-input {
+  background: var(--surface-elevated);
+  border: 2px solid var(--border-medium);
+  border-radius: 12px;
+  color: var(--text-primary);
+  padding: 16px 20px;
+  font-size: 16px;
+  transition: all 0.3s ease;
+}
+
+.luxury-input:focus {
+  border-color: var(--rich-coral);
+  box-shadow: 0 0 0 4px rgba(221, 84, 28, 0.1);
+  outline: none;
+}
+
+.siani-glow {
+  position: relative;
+  z-index: 1;
+}
+
+.siani-glow::before {
+  content: '';
+  position: absolute;
+  top: -2px;
+  left: -2px;
+  right: -2px;
+  bottom: -2px;
+  background: var(--primary-gradient);
+  border-radius: inherit;
+  z-index: -1;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.siani-glow:hover::before {
+  opacity: 0.8;
+}
+
+/* Enhanced Typography */
+.luxury-heading {
+  font-family: 'SF Pro Display', -apple-system, sans-serif;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  background: var(--accent-gradient);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.luxury-body {
+  color: var(--text-secondary);
+  line-height: 1.6;
+  letter-spacing: 0.01em;
+}
+
+/* Ambient Background */
+.ambient-bg {
+  background: var(--surface-gradient);
+  position: relative;
+  overflow: hidden;
+}
+
+.ambient-bg::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: var(--hero-gradient);
+  opacity: 0.4;
+  z-index: 0;
+}
+
+/* SIANI's authentic sunset layers for depth */
+.ambient-bg::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: radial-gradient(circle at 80% 80%, 
+    rgba(250, 195, 88, 0.1) 0%, 
+    rgba(221, 84, 28, 0.05) 40%, 
+    rgba(198, 95, 88, 0.03) 60%,
+    transparent 70%);
+  z-index: 1;
+}
+
+/* Floating Elements */
+.floating-element {
+  animation: gentle-float 6s ease-in-out infinite;
+}
+
+@keyframes gentle-float {
+  0%, 100% { transform: translateY(0px) rotate(0deg); }
+  50% { transform: translateY(-10px) rotate(1deg); }
+}
+
+/* Pulse Animation for SIANI's presence */
+.siani-pulse {
+  animation: siani-breathe 4s ease-in-out infinite;
+}
+
+@keyframes siani-breathe {
+  0%, 100% { 
+    box-shadow: 0 0 20px rgba(250, 195, 88, 0.25), 
+                0 0 40px rgba(221, 84, 28, 0.08);
+  }
+  50% { 
+    box-shadow: 0 0 30px rgba(250, 195, 88, 0.35), 
+                0 0 60px rgba(221, 84, 28, 0.15);
+  }
+}
+
+.dark {
+  --background: hsl(0, 0%, 0%);
+  --foreground: hsl(0, 0%, 100%);
+  --muted: hsl(0, 0%, 5%);
+  --muted-foreground: hsl(0, 0%, 65%);
+  --popover: hsl(0, 0%, 2%);
+  --popover-foreground: hsl(0, 0%, 100%);
+  --card: hsl(0, 0%, 2%);
+  --card-foreground: hsl(0, 0%, 100%);
+  --border: hsl(0, 0%, 8%);
+  --input: hsl(0, 0%, 6%);
+  --primary: hsl(0, 0%, 100%);
+  --primary-foreground: hsl(0, 0%, 0%);
+  --secondary: hsl(0, 0%, 8%);
+  --secondary-foreground: hsl(0, 0%, 100%);
+  --accent: hsl(210, 40%, 98%);
+  --accent-foreground: hsl(0, 0%, 0%);
+  --destructive: hsl(0, 84%, 60%);
+  --destructive-foreground: hsl(0, 0%, 98%);
+  --ring: hsl(212, 100%, 50%);
+}
+
+@layer base {
+  * {
+    @apply border-border;
+    box-sizing: border-box;
+  }
+
+  html, body, #root {
+    margin: 0;
+    padding: 0;
+    height: 100vh;
+    height: 100dvh;
+    height: -webkit-fill-available;
+    width: 100vw;
+    width: 100dvw;
+    overflow: hidden;
+    position: fixed;
+    background: radial-gradient(ellipse at top left, rgba(221, 84, 28, 0.03) 0%, transparent 70%), 
+                radial-gradient(ellipse at bottom right, rgba(198, 95, 88, 0.02) 0%, transparent 70%),
+                var(--surface-gradient);
+  }
+
+  body {
+    font-family: 'SF Pro Display', 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'Inter', system-ui, sans-serif;
+  }
+
+  body {
+    @apply font-sans antialiased bg-background text-foreground;
+    background: hsl(0, 0%, 0%);
+    background-attachment: fixed;
+    font-weight: 400;
+    font-size: 17px;
+    line-height: 1.47;
+    letter-spacing: -0.022em;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    overscroll-behavior: none;
+    -webkit-overflow-scrolling: touch;
+  }
+}
+
+/* iOS-inspired typography system */
+.text-title-1 {
+  font-size: 34px;
+  font-weight: 700;
+  line-height: 1.12;
+  letter-spacing: -0.014em;
+}
+
+.text-title-2 {
+  font-size: 28px;
+  font-weight: 700;
+  line-height: 1.14;
+  letter-spacing: -0.014em;
+}
+
+.text-title-3 {
+  font-size: 22px;
+  font-weight: 600;
+  line-height: 1.18;
+  letter-spacing: -0.012em;
+}
+
+.text-headline {
+  font-size: 17px;
+  font-weight: 600;
+  line-height: 1.29;
+  letter-spacing: -0.022em;
+}
+
+.text-body {
+  font-size: 17px;
+  font-weight: 400;
+  line-height: 1.47;
+  letter-spacing: -0.022em;
+}
+
+.text-callout {
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 1.31;
+  letter-spacing: -0.020em;
+}
+
+.text-subhead {
+  font-size: 15px;
+  font-weight: 400;
+  line-height: 1.33;
+  letter-spacing: -0.024em;
+}
+
+.text-footnote {
+  font-size: 13px;
+  font-weight: 400;
+  line-height: 1.38;
+  letter-spacing: -0.008em;
+}
+
+.text-caption {
+  font-size: 12px;
+  font-weight: 400;
+  line-height: 1.33;
+  letter-spacing: 0;
+}
+
+/* 2025 Premium Design System Classes */
+@layer utilities {
+  /* Authentic Sunset Glass System */
+  .glass-card {
+    background: var(--glass-light);
+    backdrop-filter: blur(24px) saturate(110%);
+    -webkit-backdrop-filter: blur(24px) saturate(110%);
+    border: 1px solid var(--border-subtle);
+    box-shadow: var(--glow-warm);
+  }
+  
+  .glass-elevated {
+    background: var(--glass-medium);
+    backdrop-filter: blur(32px) saturate(115%);
+    -webkit-backdrop-filter: blur(32px) saturate(115%);
+    border: 1px solid var(--border-medium);
+    box-shadow: var(--glow-warm);
+  }
+  
+  .glass-floating {
+    background: var(--glass-strong);
+    backdrop-filter: blur(40px) saturate(120%);
+    -webkit-backdrop-filter: blur(40px) saturate(120%);
+    border: 1px solid var(--border-medium);
+    box-shadow: var(--glow-sunset);
+  }
+
+  /* Authentic Sunset Button */
+  .sunset-button {
+    background: var(--primary-gradient);
+    color: var(--rich-black);
+    font-weight: 600;
+    transition: all 0.3s ease;
+  }
+  
+  .sunset-button:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--glow-warm);
+  }
+  
+  .mood-card-sunset {
+    background: var(--glass-medium);
+    border: 1px solid var(--border-subtle);
+    transition: all 0.4s ease;
+  }
+  
+  .mood-card-sunset:hover {
+    background: var(--glass-strong);
+    border-color: var(--border-medium);
+    transform: translateY(-4px) scale(1.02);
+    box-shadow: var(--glow-sunset);
+  }
+
+  .voice-active {
+    animation: premium-pulse 2s ease-in-out infinite;
+  }
+
+  .mood-card {
+    animation: float-in 0.8s ease-out forwards;
+  }
+
+  .action-card {
+    animation: slide-in-up 0.6s ease-out forwards;
+  }
+
+  @keyframes premium-pulse {
+    0%, 100% {
+      box-shadow: 0 0 30px rgba(102, 126, 234, 0.3), 0 0 60px rgba(102, 126, 234, 0.1);
+      transform: scale(1);
+    }
+    50% {
+      box-shadow: 0 0 40px rgba(102, 126, 234, 0.5), 0 0 80px rgba(102, 126, 234, 0.2);
+      transform: scale(1.02);
+    }
+  }
+
+  @keyframes float-in {
+    0% {
+      opacity: 0;
+      transform: translateY(30px) scale(0.9);
+    }
+    100% {
+      opacity: 1;
+      transform: translateY(0) scale(1);
+    }
+  }
+
+  @keyframes slide-in-up {
+    0% {
+      opacity: 0;
+      transform: translateY(40px);
+    }
+    100% {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+}
+
+/* Modern glassmorphism inspired by iOS */
+.glassmorphic {
+  background: var(--ios-blur);
+  backdrop-filter: blur(40px) saturate(180%);
+  -webkit-backdrop-filter: blur(40px) saturate(180%);
+  border: 1px solid hsla(0, 0%, 100%, 0.06);
+  box-shadow: 
+    0 1px 3px hsla(0, 0%, 0%, 0.12),
+    0 1px 2px hsla(0, 0%, 0%, 0.24),
+    inset 0 1px 0 hsla(0, 0%, 100%, 0.04);
+}
+
+/* Premium button system */
+.btn-primary {
+  background: linear-gradient(135deg, hsl(212, 100%, 50%) 0%, hsl(212, 100%, 45%) 100%);
+  color: white;
+  border: none;
+  border-radius: 12px;
+  font-weight: 600;
+  font-size: 17px;
+  letter-spacing: -0.022em;
+  padding: 16px 24px;
+  transition: all 0.2s cubic-bezier(0.25, 0.1, 0.25, 1);
+  box-shadow: 0 4px 12px hsla(212, 100%, 50%, 0.25);
+}
+
+.btn-primary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px hsla(212, 100%, 50%, 0.35);
+}
+
+.btn-primary:active {
+  transform: translateY(0);
+  transition: all 0.1s cubic-bezier(0.25, 0.1, 0.25, 1);
+}
+
+.btn-secondary {
+  background: var(--ios-gray-light);
+  color: white;
+  border: 1px solid hsla(0, 0%, 100%, 0.1);
+  border-radius: 12px;
+  font-weight: 500;
+  font-size: 17px;
+  letter-spacing: -0.022em;
+  padding: 16px 24px;
+  transition: all 0.2s cubic-bezier(0.25, 0.1, 0.25, 1);
+}
+
+.btn-secondary:hover {
+  background: hsl(240, 3%, 22%);
+  transform: translateY(-1px);
+}
+
+/* Advanced Voice Interaction Animations for 2025 */
+@keyframes voice-pulse {
+  0%, 100% { 
+    transform: scale(1);
+    box-shadow: 
+      0 0 0 0 rgba(255, 255, 255, 0.3),
+      0 0 30px rgba(255, 255, 255, 0.1);
+  }
+  50% { 
+    transform: scale(1.02);
+    box-shadow: 
+      0 0 0 20px rgba(255, 255, 255, 0),
+      0 0 50px rgba(255, 255, 255, 0.2);
+  }
+}
+
+@keyframes voice-glow {
+  0%, 100% { 
+    opacity: 0.5;
+    filter: blur(1px);
+  }
+  50% { 
+    opacity: 1;
+    filter: blur(0px);
+  }
+}
+
+@keyframes ripple {
+  0% {
+    transform: scale(0.8);
+    opacity: 1;
+  }
+  100% {
+    transform: scale(2.4);
+    opacity: 0;
+  }
+}
+
+.voice-active {
+  animation: voice-pulse 2s ease-in-out infinite;
+}
+
+.voice-glow {
+  animation: voice-glow 3s ease-in-out infinite;
+}
+
+.ripple-effect {
+  animation: ripple 1.5s ease-out infinite;
+}
+
+/* Text shadow utilities */
+.text-shadow-lg {
+  text-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+}
+
+/* Enhanced glassmorphism for 2025 */
+.glass-premium {
+  background: rgba(255, 255, 255, 0.03);
+  backdrop-filter: blur(20px) saturate(180%);
+  -webkit-backdrop-filter: blur(20px) saturate(180%);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  box-shadow: 
+    0 8px 32px rgba(0, 0, 0, 0.3),
+    inset 0 1px 0 rgba(255, 255, 255, 0.05);
+}
+
+/* Premium animations */
+@keyframes slide-up-ios {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fade-in-ios {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+.animate-slide-up {
+  animation: slide-up-ios 0.6s cubic-bezier(0.25, 0.1, 0.25, 1);
+}
+
+.animate-fade-in {
+  animation: fade-in-ios 0.4s cubic-bezier(0.25, 0.1, 0.25, 1);
+}
+
+/* iOS-style cards */
+.card-ios {
+  background: var(--ios-surface);
+  backdrop-filter: blur(20px) saturate(180%);
+  -webkit-backdrop-filter: blur(20px) saturate(180%);
+  border: 1px solid hsla(0, 0%, 100%, 0.04);
+  border-radius: 16px;
+  padding: 20px;
+  box-shadow: 
+    0 2px 8px hsla(0, 0%, 0%, 0.1),
+    inset 0 1px 0 hsla(0, 0%, 100%, 0.02);
+}
+
+/* Modern scrollbar */
+::-webkit-scrollbar {
+  width: 4px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: hsla(0, 0%, 100%, 0.1);
+  border-radius: 2px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: hsla(0, 0%, 100%, 0.2);
+}
+
+/* iOS-style safe areas */
+.safe-area-top {
+  padding-top: env(safe-area-inset-top);
+}
+
+.safe-area-bottom {
+  padding-bottom: env(safe-area-inset-bottom);
+}
+
+/* Modern focus states */
+*:focus {
+  outline: 2px solid var(--ios-blue);
+  outline-offset: 2px;
+}
+
+/* Remove default button styles */
+button {
+  background: none;
+  border: none;
+  padding: 0;
+  font: inherit;
+  cursor: pointer;
+}
+
+/* iOS-style inputs */
+input, textarea {
+  background: var(--ios-gray);
+  border: 1px solid hsla(0, 0%, 100%, 0.06);
+  border-radius: 12px;
+  padding: 12px 16px;
+  font-size: 17px;
+  color: white;
+  transition: all 0.2s ease;
+}
+
+input:focus, textarea:focus {
+  border-color: var(--ios-blue);
+  box-shadow: 0 0 0 4px hsla(212, 100%, 50%, 0.1);
+}
+
+/* Full screen mobile app styling */
+@media screen and (max-width: 768px) {
+  /* Hide address bar on scroll */
+  html {
+    height: -webkit-fill-available;
+    height: stretch;
+  }
+  
+  body {
+    min-height: 100vh;
+    min-height: -webkit-fill-available;
+    min-height: stretch;
+  }
+  
+  /* Prevent pull-to-refresh and overscroll */
+  body {
+    overscroll-behavior-y: none;
+    -webkit-overflow-scrolling: touch;
+    -webkit-user-select: none;
+    user-select: none;
+    touch-action: manipulation;
+  }
+}
+
+/* Standalone PWA mode */
+@media all and (display-mode: standalone) {
+  html, body, #root {
+    height: 100vh;
+    height: 100%;
+  }
+}
+
+/* Motion preferences */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
