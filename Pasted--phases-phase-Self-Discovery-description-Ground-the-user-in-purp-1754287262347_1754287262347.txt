@@ -1,0 +1,100 @@
+{
+  "phases": [
+    {
+      "phase": "Self-Discovery",
+      "description": "Ground the user in purpose, identity, and possibility.",
+      "sections": [
+        {
+          "id": "personal_info",
+          "prompts": [
+            "Let’s start with the basics—your name, what you like to be called, and your birthdate.",
+            "How can I reach you if we need to connect again—phone, email, or something else?",
+            "Do you have a driver’s license, ID, or Social Security card right now?"
+          ],
+          "fields": [
+            "full_name", "preferred_name", "dob", "phone", "email", "emergency_contact", "preferred_contact_method", "has_id_docs"
+          ]
+        },
+        {
+          "id": "justice_history",
+          "prompts": [
+            "Can you tell me your release date, or when you expect to come home?",
+            "Where were you released from, and how long were you there?",
+            "Are you currently on parole, probation, or anything like that?",
+            "Are there any court dates, fines, or legal things still open for you right now?"
+          ],
+          "fields": [
+            "release_date", "facility", "duration_incarcerated", "conviction_type", "legal_supervision", "outstanding_legal_issues"
+          ]
+        },
+        {
+          "id": "immediate_needs",
+          "prompts": [
+            "Let’s talk about your first 72 hours out. Where are you staying right now?",
+            "Do you have food, clean clothes, and hygiene supplies?",
+            "Do you have a phone or any way to get to court or appointments?",
+            "Are there any medications you need help continuing right now?"
+          ],
+          "fields": [
+            "housing_now", "needs_emergency_shelter", "food_secure", "hygiene_needs", "has_phone", "transportation_needs", "medication_needs"
+          ]
+        }
+      ]
+    },
+    {
+      "phase": "Goal Mapping",
+      "description": "Explore each life area to identify current state, desired future, and 30-day step.",
+      "domains": ["housing", "employment", "education", "mental_health", "physical_health", "family", "legal", "finance", "life_skills", "identity"],
+      "prompts_structure": {
+        "start": "Tell me a little about where you are right now with [domain]—what’s working, what’s not.",
+        "future": "Where would you *love* to be? What does success look like for you there?",
+        "support": "What would make the biggest difference in helping you get there?",
+        "goal": "What’s one thing you’d love to get done in the next 30 days in this area?"
+      },
+      "fields": [
+        "current_state", "future_vision", "support_needs", "goal_30_days"
+      ]
+    },
+    {
+      "phase": "Vision Activation",
+      "description": "Help the user envision their future in vivid detail.",
+      "prompts": [
+        "Imagine the version of you who’s already living the life you want. What’s different?",
+        "What does a typical day look like when you’re in your groove?",
+        "How do you feel, what are you doing, who’s around you?",
+        "What are you excited to build, give, or create in the world?"
+      ],
+      "fields": ["future_self_description", "daily_life_vision", "emotions", "purpose"]
+    },
+    {
+      "phase": "Support & Consent",
+      "description": "Align on support, connection preferences, and consent.",
+      "prompts": [
+        "Who’s in your corner right now—people, organizations, or mentors?",
+        "Would you like us to connect you with partners or support people?",
+        "Can we reach out by text, call, or email to send check-ins or reminders?",
+        "Do we have your permission to share any info with trusted support partners?"
+      ],
+      "fields": ["support_circle", "wants_referrals", "preferred_contact", "consent_to_share", "follow_up_preferences"]
+    }
+  ]
+}
+
+✅ I've created a complete working draft of the conversational flow + backend schema for the SAINTE intake experience guided by SIAni. It’s now live in the canvas: "Siani Intake Conversation And Schema."
+Here’s what’s included:
+✅ Frontend Flow (SIAni-style)
+Conversational prompts grouped by phases, not form sections
+Reflective, growth-mindset tone
+Language that feels like an exercise, not a system
+✅ Backend Schema
+Every prompt maps to a structured field
+Responses can be saved as structured JSON
+Referral logic can be layered on later via referral_tags
+✅ Glances-Ready Output
+You can present a dashboard view like:
+Top goals across domains
+Where they feel stuck
+Support needed
+Referral urgency
+Contact preferences
+

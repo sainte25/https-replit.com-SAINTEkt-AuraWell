@@ -1,0 +1,80 @@
+# 🔗 Combined API + Agent Logic Spec for SIAni
+# This connects core session, modular reflections, SCCS scoring, Customer.io triggers, and summary generation
+
+# --- 1. Endpoint Spec (RESTful or callable via Replit agent) ---
+
+POST /siani/session/start
+- Starts core self-discovery session
+- Returns: session_id, initial prompts
+
+POST /siani/session/respond
+- Input: { session_id, user_response }
+- Returns: next prompt or closing summary
+- Actions:
+  - Parse emotional tone
+  - Store response in Supabase
+  - Update memory
+  - Add SCCS points
+  - Trigger Customer.io if needed
+
+GET /siani/reflection/triggered
+- Triggered by Customer.io or app logic
+- Returns: domain-specific reflection prompts
+
+POST /siani/reflection/respond
+- Input: { user_id, domain, response }
+- Actions:
+  - Log reflection
+  - Optional: capture new goal or barrier
+  - Award SCCS points
+  - Push summary update
+
+GET /siani/sccs/summary
+- Returns: structured SCCS summary object + narrative paragraph
+
+--- 2. Memory Schema (In-Agent)
+
+memory = {
+  'active_session': 'uuid',
+  'domains_covered': ['Housing', 'Health'],
+  'last_prompt': 'string',
+  'emotional_tone_history': ['anxious', 'calm'],
+  'current_goal': 'Rebuild relationship with daughter',
+  'first_action_step': 'Text her to check in',
+  'sccs_total': 17
+}
+
+--- 3. Supabase Tables (Synced from Logic)
+- reflections
+- goals
+- sccs_log
+- life_events
+- ai_generated_summaries
+
+--- 4. Triggering Customer.io from Agent ---
+
+If response tone = "hopeless":
+- Create event: POST to Customer.io API
+  - {user_id, event: 'emotional_check_needed'}
+
+If life_event = 'motel_eviction' or new journal = 'I feel stuck again':
+- Create event: 'stabilization_prompt_required'
+
+--- 5. SCCS Scoring Logic ---
+- Tiered point structure:
+  - +2 for self-awareness (emotion, reflection, clarity)
+  - +3 for action step or milestone
+  - +5 bonus for consistency or courageous action
+
+--- 6. Response Templates (In-Agent or as PDF/email) ---
+
+summary_payload = {
+  'goal': memory['current_goal'],
+  'last_step': memory['first_action_step'],
+  'recent_reflections': ['Housing: Unsafe motel', 'Health: Feeling drained'],
+  'tone': memory['emotional_tone_history'][-1],
+  'sccs_score': memory['sccs_total'],
+  'narrative': "In the past few days, you’ve shown honesty and forward motion — especially by setting a clear goal and taking your first action. That shows resilience."
+}
+
+

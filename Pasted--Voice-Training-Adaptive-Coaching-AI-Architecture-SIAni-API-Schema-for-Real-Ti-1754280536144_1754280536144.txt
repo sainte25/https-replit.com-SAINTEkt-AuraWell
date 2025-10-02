@@ -1,0 +1,187 @@
+---
+
+✅ **Voice Training + Adaptive Coaching AI Architecture (SIAni)**
+
+### 🌐 API Schema for Real-Time SCCS Dashboard Population
+```json
+POST /sccs/update
+{
+  "user_id": "string",
+  "domain": "housing|employment|health|...",
+  "timestamp": "ISO-8601",
+  "score_delta": +4,
+  "reason": "Completed first job interview",
+  "emotional_tone": "hopeful",
+  "reflections": ["Felt nervous but proud I showed up.", "I’m doing this for my daughter."],
+  "flags": ["first_time_event", "potential_match_partner_support"]
+}
+```
+
+**GET /sccs/dashboard/:user_id** → Returns user’s live SCCS data: 
+- Score over time by domain
+- Voice-based tone indicators
+- Major emotional wins + insights
+- Linked referrals and tasks
+
+---
+
+🎧 **Audio Training Samples / Synthesis Modeling**
+
+**SIAni Voice Qualities:**
+- Tempo: ~85–100 words per minute (calm, paced)
+- Pitch: Mid-to-low tone; soothing but alert
+- Cadence: Balanced between guiding and listening
+- Style Notes: Feels like a trusted older sibling or coach
+
+**Training Data Structure:**
+```json
+{
+  "sample_id": "siani_greeting_01",
+  "script_text": "Hey. I'm really glad you’re here. Let’s take this one step at a time, together.",
+  "emotion": "grounding",
+  "target_pacing": "slow",
+  "inflection_model": "reassuring"
+}
+```
+
+Use this to train synthesis engine (e.g., ElevenLabs, PlayHT, or custom model).
+
+---
+
+🧠 **Mood Detection from Voice Sentiment + Pacing**
+
+Real-time detection (client-side or edge inference):
+- **Pacing:**
+  - <80 wpm → potentially low energy, sadness, overwhelm
+  - >120 wpm → stress, anxiety, urgency
+- **Volume:**
+  - Quiet = withdrawal or fear
+  - Raised = frustration or activation
+- **Tone Sentiment:**
+  - Negative polarity = shame, doubt, defeat
+  - Mixed/neutral = reflection or uncertainty
+  - Positive = confidence, hope, clarity
+
+**Sample Output:**
+```json
+{
+  "user_id": "abc123",
+  "session_id": "discovery_0729",
+  "mood_classification": "anxious-but-engaged",
+  "suggested_action": "slow tempo; affirm safety; offer pause option",
+  "last_positive_inflection": "described dream to start a landscaping business"
+}
+```
+
+Used to:
+- Modify SIAni's voice tempo/style in real time
+- Choose next prompt tone (motivating vs grounding)
+- Trigger referrals or support if certain thresholds are hit
+
+---
+
+📍 **Referral Logic by Domain (Expanded)**
+```json
+{
+  "referral_rules": [
+    {
+      "domain": "housing",
+      "trigger": "unsheltered",
+      "referral_type": "emergency_housing",
+      "score_delta": 2
+    },
+    {
+      "domain": "employment",
+      "trigger": "actively looking",
+      "referral_type": "job_matching",
+      "score_delta": 3
+    },
+    {
+      "domain": "education",
+      "trigger": "no GED",
+      "referral_type": "ged_program",
+      "score_delta": 2
+    },
+    {
+      "domain": "mental_health",
+      "trigger": "no therapist",
+      "referral_type": "counseling",
+      "score_delta": 2
+    },
+    {
+      "domain": "substance_use",
+      "trigger": "seeking recovery",
+      "referral_type": "MAT_support",
+      "score_delta": 4
+    },
+    {
+      "domain": "physical_health",
+      "trigger": "chronic condition",
+      "referral_type": "primary_care",
+      "score_delta": 3
+    },
+    {
+      "domain": "parenting",
+      "trigger": "reunification goal",
+      "referral_type": "family_support",
+      "score_delta": 4
+    },
+    {
+      "domain": "relationships",
+      "trigger": "rebuilding support system",
+      "referral_type": "peer_mentor",
+      "score_delta": 3
+    },
+    {
+      "domain": "legal",
+      "trigger": "no ID",
+      "referral_type": "legal_docs",
+      "score_delta": 1
+    },
+    {
+      "domain": "financial",
+      "trigger": "overwhelming debt",
+      "referral_type": "credit_coaching",
+      "score_delta": 3
+    },
+    {
+      "domain": "life_skills",
+      "trigger": "needs support with routine",
+      "referral_type": "daily_life_coaching",
+      "score_delta": 2
+    },
+    {
+      "domain": "identity",
+      "trigger": "disconnected from purpose",
+      "referral_type": "purpose_alignment",
+      "score_delta": 2
+    },
+    {
+      "domain": "community",
+      "trigger": "wants to give back",
+      "referral_type": "volunteer_placement",
+      "score_delta": 4
+    },
+    {
+      "domain": "risk_factors",
+      "trigger": "feeling hopeless",
+      "referral_type": "crisis_intervention",
+      "score_delta": 5
+    },
+    {
+      "domain": "protective_factors",
+      "trigger": "names support system",
+      "referral_type": "peer_network_invite",
+      "score_delta": 3
+    },
+    {
+      "domain": "consent_goals",
+      "trigger": "opted into services",
+      "referral_type": "case_manager_assignment",
+      "score_delta": 1
+    }
+  ]
+}
+```
+
+Let me know if you’d like this exported as a file or visual map!

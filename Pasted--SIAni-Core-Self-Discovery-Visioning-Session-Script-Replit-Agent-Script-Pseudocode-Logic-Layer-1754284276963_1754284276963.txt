@@ -1,0 +1,78 @@
+# SIAni Core Self-Discovery & Visioning Session Script
+# Replit Agent Script (Pseudocode/Logic Layer)
+
+# This is a modular, flowing session (~20-30 minutes total)
+# Tone: calming, empowering, non-judgmental, possibility-oriented
+# Output: SCCS points, structured memory variables, summary payload
+
+# Memory object placeholders
+memory = {
+    'identity_keywords': [],
+    'emotional_tone': None,
+    'immediate_needs': [],
+    'strengths': [],
+    'goal': None,
+    'barriers': [],
+    'vision_summary': '',
+    'first_action_step': '',
+    'sccs_points': 0
+}
+
+# Helper to assign SCCS points
+add_sccs_points = lambda category, amount: memory.update({'sccs_points': memory['sccs_points'] + amount})
+
+# Intro
+print("Hey, I’m SIAni. This isn’t a test or an intake. It’s a conversation — about you, your goals, and where you want to go. Let’s start when you’re ready.")
+
+# 1. Identity & Current Reality
+identity = input("How would you describe yourself right now — not your label, but what you feel or believe about who you are?")
+memory['identity_keywords'] = identity.lower().split()
+add_sccs_points('identity_reflection', 2)
+
+# 2. Emotional Check-in
+emotion = input("What emotions have been showing up most for you lately? You can name more than one.")
+memory['emotional_tone'] = emotion.lower()
+add_sccs_points('emotional_awareness', 1)
+
+# 3. Immediate Needs
+needs = input("What’s weighing on you most today? Any urgent needs (like housing, safety, childcare, legal issues)?")
+memory['immediate_needs'] = needs.lower().split(',')
+add_sccs_points('needs_identified', 2)
+
+# 4. Strengths
+strengths = input("What’s something you’ve done before that you’re proud of — or something people say you’re good at?")
+memory['strengths'] = strengths.lower().split(',')
+add_sccs_points('strength_insight', 2)
+
+# 5. Future Vision Prompt
+vision = input("If you could wake up 6 months from now and feel proud — what would be different in your life?")
+memory['vision_summary'] = vision
+add_sccs_points('vision_articulated', 3)
+
+# 6. Goal Discovery
+goal = input("Let’s pick one thing you’d want to start working toward — no pressure, just what feels important.")
+memory['goal'] = goal
+add_sccs_points('goal_selected', 3)
+
+# 7. First Step
+step = input("What’s a tiny step you could take toward that goal? Something you could try today or this week?")
+memory['first_action_step'] = step
+add_sccs_points('action_step_defined', 2)
+
+# 8. Barriers
+barriers = input("What could get in the way — inside or outside? Be real, and I’ll help you work through it.")
+memory['barriers'] = barriers.lower().split(',')
+add_sccs_points('barrier_insight', 2)
+
+# 9. Closing Encouragement
+print("You showed up. You got real. That’s what matters. I’ve saved what you shared so we can keep building your plan together — step by step.")
+
+# Output Summary (to be sent to frontend or SCCS engine)
+session_summary = {
+    'memory': memory,
+    'sccs_contributions': memory['sccs_points'],
+    'timestamp': 'AUTO_NOW',
+    'summary_message': f"Goal: {goal}. First step: {step}. Let’s build from here."
+}
+
+

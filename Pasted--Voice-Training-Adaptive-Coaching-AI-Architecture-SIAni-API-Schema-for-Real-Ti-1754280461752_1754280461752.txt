@@ -1,0 +1,165 @@
+---
+
+✅ **Voice Training + Adaptive Coaching AI Architecture (SIAni)**
+
+### 🌐 API Schema for Real-Time SCCS Dashboard Population
+```json
+POST /sccs/update
+{
+  "user_id": "string",
+  "domain": "housing|employment|health|...",
+  "timestamp": "ISO-8601",
+  "score_delta": +4,
+  "reason": "Completed first job interview",
+  "emotional_tone": "hopeful",
+  "reflections": ["Felt nervous but proud I showed up.", "I’m doing this for my daughter."],
+  "flags": ["first_time_event", "potential_match_partner_support"]
+}
+```
+
+**GET /sccs/dashboard/:user_id** → Returns user’s live SCCS data: 
+- Score over time by domain
+- Voice-based tone indicators
+- Major emotional wins + insights
+- Linked referrals and tasks
+
+---
+
+🎧 **Audio Training Samples / Synthesis Modeling**
+
+**SIAni Voice Qualities:**
+- Tempo: ~85–100 words per minute (calm, paced)
+- Pitch: Mid-to-low tone; soothing but alert
+- Cadence: Balanced between guiding and listening
+- Style Notes: Feels like a trusted older sibling or coach
+
+**Training Data Structure:**
+```json
+{
+  "sample_id": "siani_greeting_01",
+  "script_text": "Hey. I'm really glad you’re here. Let’s take this one step at a time, together.",
+  "emotion": "grounding",
+  "target_pacing": "slow",
+  "inflection_model": "reassuring"
+}
+```
+
+Use this to train synthesis engine (e.g., ElevenLabs, PlayHT, or custom model).
+
+---
+
+🧠 **Mood Detection from Voice Sentiment + Pacing**
+
+Real-time detection (client-side or edge inference):
+- **Pacing:**
+  - <80 wpm → potentially low energy, sadness, overwhelm
+  - >120 wpm → stress, anxiety, urgency
+- **Volume:**
+  - Quiet = withdrawal or fear
+  - Raised = frustration or activation
+- **Tone Sentiment:**
+  - Negative polarity = shame, doubt, defeat
+  - Mixed/neutral = reflection or uncertainty
+  - Positive = confidence, hope, clarity
+
+**Sample Output:**
+```json
+{
+  "user_id": "abc123",
+  "session_id": "discovery_0729",
+  "mood_classification": "anxious-but-engaged",
+  "suggested_action": "slow tempo; affirm safety; offer pause option",
+  "last_positive_inflection": "described dream to start a landscaping business"
+}
+```
+
+Used to:
+- Modify SIAni's voice tempo/style in real time
+- Choose next prompt tone (motivating vs grounding)
+- Trigger referrals or support if certain thresholds are hit
+
+---
+
+🧭 **Simulated Live Voice Session (Discovery Workshop Excerpt)**
+
+> "Hey, welcome. You’ve been through a lot to get here — and I want to make this space feel like your own. This isn’t just a check-in. It’s a chance to reset, to dream, and to make a plan that actually fits you."
+
+> "Let’s start with the big picture: What’s something — anything — you wish could feel different in your life 90 days from now?"
+
+> "Okay… that matters. Let’s keep going. What are three things, small or big, that you’ve done in the past you’re proud of — even if no one else noticed?"
+
+> "You’ve got more in you than you’ve had a chance to show. So here’s the move: We’ll look at where you’re at in life — not to judge it, but to map out your path forward. I’ll help you set goals, unlock support, and stay grounded along the way."
+
+> "If you ever feel stuck during this, just say ‘pause’ or ‘not ready.’ You’re in control. Let’s start with housing — where are you staying tonight?"
+
+...
+
+> "You said you’re bouncing between places and don’t always feel safe. That takes strength just to manage every day. I’m tagging this as a ‘housing stability flag.’ I’ll look for emergency options nearby and long-term fits."
+
+...
+
+> "Alright — now let’s shift to your goals. If you could wake up 30 days from now having made one powerful move forward, what would it be?"
+
+> "Let’s lock that in. That’s not just a dream — that’s direction."
+
+---
+
+🚦 **Referral Trigger Logic by Domain Insight (Sample JSON)**
+
+```json
+[
+  {
+    "domain": "housing",
+    "triggers": [
+      {
+        "condition": "unsheltered OR couch_surfing",
+        "referral_type": "emergency_housing",
+        "sccs_boost": 5,
+        "priority": "urgent"
+      },
+      {
+        "condition": "eviction_history",
+        "referral_type": "housing_advocacy",
+        "priority": "standard"
+      }
+    ]
+  },
+  {
+    "domain": "employment",
+    "triggers": [
+      {
+        "condition": "actively_seeking AND no_income",
+        "referral_type": "job_placement",
+        "sccs_boost": 4,
+        "priority": "high"
+      },
+      {
+        "condition": "interested_in_certification",
+        "referral_type": "training_programs",
+        "priority": "standard"
+      }
+    ]
+  },
+  {
+    "domain": "mental_health",
+    "triggers": [
+      {
+        "condition": "no_current_support AND expressed_emotional_distress",
+        "referral_type": "mental_health_services",
+        "sccs_boost": 6,
+        "priority": "urgent"
+      },
+      {
+        "condition": "in_recovery AND no_mat",
+        "referral_type": "recovery_support",
+        "priority": "high"
+      }
+    ]
+  }
+]
+```
+
+Let me know if you want to:
+- Expand the simulated voice session further
+- Add full referral logic for all 16 domains
+- Create visual mockups or design Bubble workflows

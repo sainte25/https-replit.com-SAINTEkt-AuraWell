@@ -1,0 +1,189 @@
+---
+
+✅ **Voice Training + Adaptive Coaching AI Architecture (SIAni)**
+
+### 🌐 API Schema for Real-Time SCCS Dashboard Population
+```json
+POST /sccs/update
+{
+  "user_id": "string",
+  "domain": "housing|employment|health|...",
+  "timestamp": "ISO-8601",
+  "score_delta": +4,
+  "reason": "Completed first job interview",
+  "emotional_tone": "hopeful",
+  "reflections": ["Felt nervous but proud I showed up.", "I’m doing this for my daughter."],
+  "flags": ["first_time_event", "potential_match_partner_support"]
+}
+```
+
+**GET /sccs/dashboard/:user_id** → Returns user’s live SCCS data: 
+- Score over time by domain
+- Voice-based tone indicators
+- Major emotional wins + insights
+- Linked referrals and tasks
+
+---
+
+🎧 **Audio Training Samples / Synthesis Modeling**
+
+**SIAni Voice Qualities:**
+- Tempo: ~85–100 words per minute (calm, paced)
+- Pitch: Mid-to-low tone; soothing but alert
+- Cadence: Balanced between guiding and listening
+- Style Notes: Feels like a trusted older sibling or coach
+
+**Training Data Structure:**
+```json
+{
+  "sample_id": "siani_greeting_01",
+  "script_text": "Hey. I'm really glad you’re here. Let’s take this one step at a time, together.",
+  "emotion": "grounding",
+  "target_pacing": "slow",
+  "inflection_model": "reassuring"
+}
+```
+
+---
+
+🧠 **Mood Detection from Voice Sentiment + Pacing**
+
+**Sample Output:**
+```json
+{
+  "user_id": "abc123",
+  "session_id": "discovery_0729",
+  "mood_classification": "anxious-but-engaged",
+  "suggested_action": "slow tempo; affirm safety; offer pause option",
+  "last_positive_inflection": "described dream to start a landscaping business"
+}
+```
+
+Used to:
+- Modify SIAni's voice tempo/style in real time
+- Choose next prompt tone (motivating vs grounding)
+- Trigger referrals or support if thresholds are hit
+
+---
+
+🧭 **Smart Branching Logic: Full 16-Domain Tree**
+
+Each domain includes:
+- 🔄 Triggers (life events, gaps, emotional tones)
+- 🗺 Branching options (based on readiness, tone, context)
+- 🧠 Coaching goals (confidence, vision, strategy)
+
+**Domains + Branching Strategy:**
+1. Identity & Vision
+2. Justice History
+3. Immediate Needs
+4. Housing
+5. Employment
+6. Education
+7. Mental Health
+8. Physical Health
+9. Family/Relationships
+10. Legal
+11. Financial
+12. Life Skills
+13. Community & Belonging
+14. Risk/Protective Factors
+15. Goal Review & Consent
+16. Daily Action Plans
+
+---
+
+🗣️ **Modular Domain Reflection Scripts (Sample Style)**
+
+**Housing:**
+"Where you sleep affects how you think. Let’s talk about where you’re at right now — and what stability could feel like."
+- "What’s working about your current setup? What’s not?"
+- "If you could design your perfect housing plan for 30 days from now, what would that look like?"
+- "Who would you want around you, or not around you?"
+- "If you had the support — what would you change tomorrow?"
+
+**Employment:**
+"Work isn’t just about money — it’s also about meaning, movement, and motivation."
+- "What do you love doing — even if no one pays you for it yet?"
+- "What kind of work would feel like a win, not just a paycheck?"
+- "What’s getting in the way of working right now?"
+- "What would help you feel proud to say ‘this is my job’?"
+
+(Similar reflective coaching-style prompts for each domain)
+
+---
+
+🧱 **Supabase Schema (SQL)**
+```sql
+CREATE TABLE users (
+  id UUID PRIMARY KEY,
+  name TEXT,
+  phone TEXT,
+  email TEXT,
+  preferred_language TEXT,
+  created_at TIMESTAMP DEFAULT now()
+);
+
+CREATE TABLE reflections (
+  id UUID PRIMARY KEY,
+  user_id UUID REFERENCES users(id),
+  domain TEXT,
+  tone TEXT,
+  transcript TEXT,
+  insights TEXT,
+  created_at TIMESTAMP DEFAULT now()
+);
+
+CREATE TABLE goals (
+  id UUID PRIMARY KEY,
+  user_id UUID REFERENCES users(id),
+  domain TEXT,
+  goal_text TEXT,
+  status TEXT DEFAULT 'active',
+  sccs_contribution INTEGER,
+  created_at TIMESTAMP DEFAULT now()
+);
+
+CREATE TABLE sccs_scores (
+  id UUID PRIMARY KEY,
+  user_id UUID REFERENCES users(id),
+  domain TEXT,
+  score_delta INTEGER,
+  reason TEXT,
+  emotional_tone TEXT,
+  created_at TIMESTAMP DEFAULT now()
+);
+```
+
+---
+
+🧠 **SCCS Scoring Rules by Domain**
+```json
+{
+  "domain": "employment",
+  "tone": "hopeful",
+  "action": "named specific job goal",
+  "sccs_delta": 5
+}
+```
+```json
+{
+  "domain": "housing",
+  "tone": "courageous",
+  "action": "described leaving unsafe situation",
+  "sccs_delta": 8
+}
+```
+
+---
+
+🔧 **Bubble Workflow Logic**
+- Trigger: new voice reflection uploaded → parse → store in Supabase
+- If tone = “motivated” + new goal → SCCS +5
+- If tone = “overwhelmed” + immediate need → flag for care escalation
+- Schedule domain nudge in Customer.io if domain untouched for 5 days
+
+Let me know when you want:
+- 🎙 Full voice session simulation
+- 📲 Figma mockups
+- 📤 Referral engine JSON

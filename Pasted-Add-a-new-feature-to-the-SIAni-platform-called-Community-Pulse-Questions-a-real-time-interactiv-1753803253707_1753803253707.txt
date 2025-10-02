@@ -1,0 +1,98 @@
+Add a new feature to the SIAni platform called “Community Pulse Questions” — a real-time, interactive survey module where users can:
+	•	Receive random pop-up questions during app use
+	•	Visit a dedicated in-app hub to explore and answer questions at any time
+	•	Compare their responses with anonymous community results
+	•	Reflect on their own lived experiences in context with others
+	•	Contribute to data-driven reform in public health, justice, housing, and economic equity
+
+⸻
+
+🧩 Primary Use Cases:
+	•	Build a sense of connection through shared challenges and reflections
+	•	Provide culturally relevant behavioral health and public sentiment data
+	•	Surface insights for systemic change without surveillance or judgment
+	•	Give users a voice in shaping system responses and social narratives
+
+⸻
+
+🧱 Feature Components
+
+1. Database Structure (Supabase or equivalent)
+
+pulse_questions
+	•	id (UUID)
+	•	question_text (text)
+	•	question_type (enum: multiple_choice, emoji_scale, open_text)
+	•	options (array of strings, if applicable)
+	•	topic (text: housing, health, parenting, dignity, etc.)
+	•	tags (array: humor, real-talk, introspective, youth-led, CHW-suggested, etc.)
+	•	start_date / end_date (timestamp)
+	•	show_in_popup (boolean)
+	•	show_in_homebase (boolean)
+	•	allow_comparison (boolean)
+	•	created_by_user_id (optional, admin or CHW)
+	•	featured (boolean)
+
+pulse_answers
+	•	id (UUID)
+	•	user_id (UUID)
+	•	question_id (UUID)
+	•	selected_option (text)
+	•	explanation_text (optional, text)
+	•	answered_at (timestamp)
+	•	user_snapshot (JSON: emotional state, check-in data, care plan tags, etc.)
+
+⸻
+
+2. Trigger Logic for Pop-Up Display
+	•	Show max 1–2 questions per day
+	•	Trigger based on user behavior (e.g., after daily check-in, goal tracking, or idle time)
+	•	Optional emotion-aware priority queue (e.g., if user logs feeling anxious, show “What helps you feel safe at home?”)
+	•	Use “question relevance” score to match with recent app activity or location
+
+⸻
+
+3. In-App Feature Hub (Always Available)
+
+Route: /community-questions
+Tab label: “Questions Everyone’s Answering”
+
+Includes:
+	•	Featured question of the day
+	•	Explore: Active questions (filter by topic or tag)
+	•	My reflections: answers I’ve given, with community comparison
+	•	Learn tab: trending insights based on collective answers
+
+⸻
+
+4. Peer Comparison Display
+	•	After a user answers:
+	•	“You chose: [your answer]”
+	•	“Here’s how others responded” (pie chart or bar graph)
+	•	Optional: “3 words people used to describe why” (word cloud from open responses)
+
+⸻
+
+5. Admin & Partner Capabilities
+	•	Create/edit/publish new questions
+	•	Flag questions as:
+	•	CHW-sourced
+	•	Youth-led
+	•	Sponsored for research or grant purposes
+	•	Download anonymized data for insight reporting (filters by location, topic, or tag)
+
+⸻
+
+6. User Control & Privacy
+	•	No answers are ever public unless explicitly shared
+	•	Users can opt-out of comparisons or data use
+	•	Periodic reflection summaries (e.g., “You’ve answered 12 questions — here’s what you’ve taught the system about dignity and trust.”)
+
+⸻
+
+✅ Completion Criteria
+	•	20+ starter questions across 5 categories (housing, health equity, safety, economic strain, stigma)
+	•	Fully integrated backend and UI for both random and user-initiated flows
+	•	Functional peer comparison and insight generation
+	•	Admin/partner tools to add and manage questions
+	•	Mobile-first and accessible design

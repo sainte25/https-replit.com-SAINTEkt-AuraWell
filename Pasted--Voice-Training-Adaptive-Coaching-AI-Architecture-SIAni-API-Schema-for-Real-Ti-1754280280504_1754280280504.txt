@@ -1,0 +1,146 @@
+---
+
+✅ **Voice Training + Adaptive Coaching AI Architecture (SIAni)**
+
+### 🌐 API Schema for Real-Time SCCS Dashboard Population
+```json
+POST /sccs/update
+{
+  "user_id": "string",
+  "domain": "housing|employment|health|...",
+  "timestamp": "ISO-8601",
+  "score_delta": +4,
+  "reason": "Completed first job interview",
+  "emotional_tone": "hopeful",
+  "reflections": ["Felt nervous but proud I showed up.", "I’m doing this for my daughter."],
+  "flags": ["first_time_event", "potential_match_partner_support"]
+}
+```
+
+**GET /sccs/dashboard/:user_id** → Returns user’s live SCCS data: 
+- Score over time by domain
+- Voice-based tone indicators
+- Major emotional wins + insights
+- Linked referrals and tasks
+
+---
+
+🎧 **Audio Training Samples / Synthesis Modeling**
+
+**SIAni Voice Qualities:**
+- Tempo: ~85–100 words per minute (calm, aspirational pacing)
+- Pitch: Mid-to-low tone; confident, warm, and present
+- Cadence: Balanced between motivating and grounding
+- Style Notes: Feels like a trusted, powerful coach who sees greatness in you
+
+**Training Data Structure:**
+```json
+{
+  "sample_id": "siani_intro_01",
+  "script_text": "Let’s build something powerful together. I’ll guide, you’ll grow — and we’ll move step by step.",
+  "emotion": "empowering",
+  "target_pacing": "mid",
+  "inflection_model": "uplifted_strength"
+}
+```
+
+---
+
+🧠 **Mood Detection from Voice Sentiment + Pacing**
+
+Real-time detection:
+- **Pacing:**
+  - <80 wpm → may indicate fear, fatigue, overwhelm
+  - >120 wpm → urgency, anxious energy
+- **Volume:**
+  - Soft = uncertainty, withdrawal
+  - Raised = momentum, possible escalation
+- **Tone Sentiment:**
+  - Positive = motivation, hope
+  - Neutral = curiosity, reflection
+  - Negative = frustration, defeat, stress
+
+**Sample Output:**
+```json
+{
+  "user_id": "abc123",
+  "session_id": "visioning_0831",
+  "mood_classification": "hopeful_but_uncertain",
+  "suggested_action": "affirm autonomy, offer achievable next step",
+  "last_positive_inflection": "talked about going back to school for her kids"
+}
+```
+
+---
+
+🎙️ **Simulated Voice Session: SIAni Core Discovery Workshop**
+
+**(Tone: aspirational, calm, grounded)**
+
+> “Hey. I’ve got you. We’re not doing forms today — we’re building your future. You ready to dream a little with me?”
+
+> “Let’s start with who you are — not just what you’ve been through. What’s your name? And what do you want to be known for?”
+
+[Pause for voice input → backend tags: identity, tone, agency]
+
+> “Okay. That matters. Now tell me — if you could wake up 90 days from now with one big win under your belt, what would it be?”
+
+[Goal-setting block → backend stores timestamp, tone = determined, tag = ‘vision_goal_90d’]
+
+> “Love it. What’s the first thing you think we could do to get a step closer? Nothing too big — just one move.”
+
+[Small step logic → tags first action, builds confidence streak]
+
+> “Now tell me what’s been making it hard. What’s real in your world that we need to work around, not ignore?”
+
+[Barrier mapping → branches to housing, legal, stress, etc.]
+
+> “I hear you. You’re not alone in this. I’ve seen people just like you move mountains — we just build one rock at a time.”
+
+> “Can I ask you about a few areas — housing, health, work — and you just tell me where the heat is?”
+
+[Modular transition to domain branching]
+
+---
+
+🧭 **Smart Domain Branching Map**
+
+**Initial Trigger →** Identity + Goal → Tailored flow based on stated goals, tone, and risk level
+
+| Domain | Trigger | Priority | Follow-Up Prompts | SCCS Tags |
+|--------|---------|----------|-------------------|-----------|
+| Housing | Mentions unsheltered, unsafe, unstable | High | “Where did you sleep last night?” “What would feel like stability?” | `housing_urgency`, `safety_flag` |
+| Employment | States goal as job, income, or independence | Med | “What kind of work excites you?” “Want help mapping your path?” | `work_ready`, `motivation_flag` |
+| Mental Health | Tone = low/confused/anxious OR explicitly mentioned | High | “Want to talk through what’s been heavy?” “What helps you feel solid?” | `mh_support`, `resilience_win` |
+| Legal | Supervision, fines, violations, fear of PO | Med-High | “Got any court stuff coming up?” “Want help understanding your status?” | `legal_active`, `trust_risk` |
+| Parenting | Mentions kids, family goals | Med | “Want to be more present for them?” “What kind of parent do you want to be?” | `parenting_strength`, `purpose_anchor` |
+
+Every branch maps:
+- 🎧 Prompts → emotional tone → SCCS insight
+- 🎯 Goal alignment + taskable items
+- 🤝 Referral tag if threshold hit (see JSON logic below)
+
+---
+
+📦 **JSON Referral Rule Logic (sample)**
+```json
+{
+  "if": [
+    { "domain": "housing", "response": "unsheltered" },
+    { "emotional_tone": "resigned" }
+  ],
+  "then": {
+    "referral_type": "emergency_housing",
+    "score_delta": +8,
+    "insight": "Chose to name housing barrier despite overwhelm",
+    "trigger_partner_tag": "urgent_housing_needs"
+  }
+}
+```
+
+---
+
+Let me know when you want:
+- 🔁 Daily reflection loop logic
+- 🗺️ Expanded domain trees (health, parenting, trauma)
+- 📲 Figma screen simulation of this session on SAINTE app

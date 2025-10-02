@@ -1,0 +1,133 @@
+# Replit Agent: SIAni Conversational Intake & Coaching AI
+
+## 🧠 PURPOSE
+SIAni is a voice-based AI agent guiding justice-impacted users through a powerful, aspirational, and modular self-discovery and needs assessment workshop. She collects data conversationally, stores it in Supabase, and dynamically responds based on tone, state, and goals.
+
+---
+
+## ✅ CORE MODULE: INITIAL 20–30 MIN SESSION
+
+```python
+class CoreSelfDiscovery:
+    def run(self, audio_input):
+        transcript = transcribe(audio_input)
+        intent, domain, emotion = classify(transcript)
+        insights = parse_goals_needs(transcript)
+        tone = detect_emotional_state(audio_input)
+
+        store_reflection(user_id, domain, insights, tone)
+        update_SCCS(user_id, domain, insights, tone)
+
+        next_prompt = smart_branch(domain, tone, insights)
+        return generate_voice_response(next_prompt, tone)
+```
+
+---
+
+## 🎯 DOMAIN REFLECTION SEQUENCER
+
+```python
+domain_sequence = [
+    "housing", "employment", "health", "mental_health",
+    "education", "legal", "parenting", "identity"
+]
+
+def trigger_next_module(current_domain, user_state):
+    if user_state["overwhelmed"]:
+        return "grounding_closure_prompt"
+    else:
+        return domain_sequence[next_index(current_domain)]
+```
+
+---
+
+## 📦 SUPABASE SCHEMA (SQL)
+
+```sql
+CREATE TABLE reflections (
+  id UUID PRIMARY KEY,
+  user_id UUID REFERENCES users(id),
+  domain TEXT,
+  tone TEXT,
+  response TEXT,
+  timestamp TIMESTAMPTZ DEFAULT now()
+);
+
+CREATE TABLE goals (
+  id UUID PRIMARY KEY,
+  user_id UUID REFERENCES users(id),
+  goal_text TEXT,
+  priority TEXT,
+  status TEXT,
+  created_at TIMESTAMPTZ DEFAULT now()
+);
+
+CREATE TABLE sccs_scores (
+  id UUID PRIMARY KEY,
+  user_id UUID REFERENCES users(id),
+  domain TEXT,
+  score_delta INT,
+  tone TEXT,
+  reason TEXT,
+  timestamp TIMESTAMPTZ DEFAULT now()
+);
+```
+
+---
+
+## 🧭 REFERRAL RULE LOGIC (JSON)
+
+```json
+{
+  "if": {
+    "domain": "housing",
+    "tone": "stressed",
+    "response": "no shelter"
+  },
+  "then": {
+    "referral_type": "emergency_housing",
+    "priority": "high",
+    "trigger": true
+  }
+}
+```
+
+---
+
+## 🎙️ SIAni VOICE MODEL CONFIG
+
+```json
+{
+  "style": "aspirational-coach",
+  "pacing": "85_wpm",
+  "tone": "grounded-but-empowering",
+  "persona_variants": {
+    "anxious": "warm and steady",
+    "defensive": "direct but non-threatening",
+    "motivated": "celebratory and forward-focused"
+  }
+}
+```
+
+---
+
+## 📊 SCCS DASHBOARD API
+
+```python
+@app.post("/sccs/update")
+def update_score(user_id, domain, score_delta, reason, tone):
+    log_score(user_id, domain, score_delta, reason, tone)
+    return {"status": "ok"}
+
+@app.get("/sccs/dashboard/{user_id}")
+def get_sccs_dashboard(user_id):
+    return compile_sccs_summary(user_id)
+```
+
+---
+
+Let me know if you want:
+- Replit-specific function wrappers for `.agent()` behavior
+- Voice training synthesis specs
+- Bubble or Customer.io integration flows
+- Print/shareable SCCS PDF output

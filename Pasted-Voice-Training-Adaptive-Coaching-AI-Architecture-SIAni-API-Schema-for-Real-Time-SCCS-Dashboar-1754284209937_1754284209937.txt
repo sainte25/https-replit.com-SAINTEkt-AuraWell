@@ -1,0 +1,61 @@
+Voice Training + Adaptive Coaching AI Architecture (SIAni)
+🌐 API Schema for Real-Time SCCS Dashboard Population
+POST /sccs/update
+{
+  "user_id": "string",
+  "domain": "housing|employment|health|...",
+  "timestamp": "ISO-8601",
+  "score_delta": +4,
+  "reason": "Completed first job interview",
+  "emotional_tone": "hopeful",
+  "reflections": ["Felt nervous but proud I showed up.", "I’m doing this for my daughter."],
+  "flags": ["first_time_event", "potential_match_partner_support"]
+}
+GET /sccs/dashboard/:user_id → Returns user’s live SCCS data:
+Score over time by domain
+Voice-based tone indicators
+Major emotional wins + insights
+Linked referrals and tasks
+
+🎧 Audio Training Samples / Synthesis Modeling
+SIAni Voice Qualities:
+Tempo: ~90–110 words per minute (measured, steady confidence)
+Pitch: Grounded mid-tone; powerful yet warm
+Cadence: Clear, deliberate, with intentional pauses
+Style Notes: Feels like a trusted coach or visionary leader — empowering, never clinical
+Training Data Structure:
+{
+  "sample_id": "siani_greeting_01",
+  "script_text": "You’ve already made a powerful choice by showing up today. Let’s take this energy and channel it into building what’s next.",
+  "emotion": "aspirational",
+  "target_pacing": "strong",
+  "inflection_model": "uplifting"
+}
+Use this to train synthesis engine (e.g., ElevenLabs, PlayHT, or custom model).
+
+🧠 Mood Detection from Voice Sentiment + Pacing
+Real-time detection (client-side or edge inference):
+Pacing:
+<80 wpm → possible low energy, discouraged
+120 wpm → urgency, high energy, stress
+Volume:
+Quiet = low confidence or reflection
+Strong = motivated, ready to act
+Tone Sentiment:
+Positive = excitement, momentum
+Neutral = steady, processing
+Negative = doubt, overwhelm
+Sample Output:
+{
+  "user_id": "abc123",
+  "session_id": "discovery_0729",
+  "mood_classification": "focused-and-hopeful",
+  "suggested_action": "match tone with clarity; anchor in next step",
+  "last_positive_inflection": "shared vision to become a business owner"
+}
+Used to:
+Adjust SIAni's voice tempo/style in real time
+Choose next prompt tone (motivating, visionary, or grounding)
+Trigger SCCS points and referrals when breakthrough states are reached
+
+

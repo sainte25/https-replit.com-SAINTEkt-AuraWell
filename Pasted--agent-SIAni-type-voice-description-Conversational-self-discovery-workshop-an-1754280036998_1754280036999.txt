@@ -1,0 +1,98 @@
+{
+  "agent": "SIAni",
+  "type": "voice",
+  "description": "Conversational self-discovery workshop and goal-setting intake for justice-impacted individuals.",
+  "memory": {
+    "store": [
+      "identity_insights",
+      "goals.short_term",
+      "goals.long_term",
+      "domain_needs.housing",
+      "domain_needs.employment",
+      "domain_needs.health",
+      "domain_needs.legal",
+      "domain_needs.family",
+      "emotional_tone",
+      "voice_sentiment.metrics"
+    ]
+  },
+  "supabase_schema": {
+    "tables": [
+      {
+        "name": "reflections",
+        "columns": [
+          "id SERIAL PRIMARY KEY",
+          "user_id UUID",
+          "domain TEXT",
+          "text TEXT",
+          "tone TEXT",
+          "timestamp TIMESTAMP DEFAULT NOW()"
+        ]
+      },
+      {
+        "name": "goals",
+        "columns": [
+          "id SERIAL PRIMARY KEY",
+          "user_id UUID",
+          "goal_type TEXT",  
+          "description TEXT",
+          "created_at TIMESTAMP DEFAULT NOW()",
+          "status TEXT"
+        ]
+      },
+      {
+        "name": "sccs_updates",
+        "columns": [
+          "id SERIAL PRIMARY KEY",
+          "user_id UUID",
+          "domain TEXT",
+          "score_delta INT",
+          "reason TEXT",
+          "tone TEXT",
+          "timestamp TIMESTAMP DEFAULT NOW()"
+        ]
+      },
+      {
+        "name": "emotional_states",
+        "columns": [
+          "id SERIAL PRIMARY KEY",
+          "user_id UUID",
+          "session_id TEXT",
+          "tone_classification TEXT",
+          "wpm FLOAT",
+          "volume INT",
+          "last_positive_trigger TEXT",
+          "suggested_action TEXT",
+          "timestamp TIMESTAMP DEFAULT NOW()"
+        ]
+      }
+    ]
+  },
+  "referral_logic": {
+    "trigger": "housing",
+    "conditions": [
+      "tone = 'defeated'",
+      "response = 'unsheltered'"
+    ],
+    "actions": [
+      "tag_referral: emergency_housing",
+      "send_notification: care_team",
+      "log_referral_event"
+    ]
+  },
+  "branching_rules": {
+    "mood_classification": "anxious",
+    "response": "adjust_tempo: slower",
+    "prompt_style": "reassuring",
+    "next_topic": "anchor_strengths"
+  },
+  "frontend_mockups": {
+    "type": "figma",
+    "views": [
+      "siani_conversation_modal",
+      "glances_dashboard_sccs",
+      "goal_tracking_flow",
+      "referral_notification_popup"
+    ]
+  }
+}

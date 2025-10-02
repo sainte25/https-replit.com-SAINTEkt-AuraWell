@@ -1,0 +1,140 @@
+✅ The Follow-up Domain Reflection Map and Supabase/Postgres Schema are now live in the canvas titled "Siani Reflections Schema."
+
+What’s included:
+📍 Modular Reflection Map
+5 high-priority domains: housing, employment, health, legal/justice, relationships
+Each domain includes:
+Purpose
+Sample prompts (SIAni-style tone)
+SCCS logic (how points are awarded)
+Suggested cadence and trigger types
+🧱 Database Schema
+Structured to support:
+Reflections and action steps
+Goals (ongoing and domain-linked)
+SCCS contributions
+AI-generated summaries
+Rewards and motivational messages
+Life events as trigger data
+# Follow-up Domain Reflections: Map + Schema (SIAni)
+
+### 📍 Modular Domain Reflection Map
+# These domains will be explored in ongoing, multi-touch micro-sessions (via app + Customer.io)
+# Each includes: purpose, sample prompts, SCCS logic, and suggested cadence/trigger
+
+reflection_domains = [
+    {
+        "name": "Housing",
+        "purpose": "Understand housing stability, needs, and progress",
+        "sample_prompts": [
+            "How safe and stable is your current living situation?",
+            "What would better housing look like for you?",
+            "Have you had to move recently or are worried about it?"
+        ],
+        "sccs_logic": "+2 for completion, +3 for concrete steps taken (e.g. application, meeting)",
+        "triggers": ["every 4–5 days", "after housing-related notes", "new shelter/lease info"]
+    },
+    {
+        "name": "Employment",
+        "purpose": "Track job goals, search efforts, stability, and barriers",
+        "sample_prompts": [
+            "What kind of work would feel like a good fit right now?",
+            "Are you looking for work, already working, or in between?",
+            "What’s one thing you could do to move forward this week?"
+        ],
+        "sccs_logic": "+2 for insight, +3 for milestone (interview, resume, first day, etc.)",
+        "triggers": ["biweekly check", "after job search goal", "post-rejection support"]
+    },
+    {
+        "name": "Health",
+        "purpose": "Check in on physical and mental health needs + coping strategies",
+        "sample_prompts": [
+            "How’s your body been feeling lately? Anything you’re ignoring?",
+            "What’s been affecting your mood the most this week?",
+            "Who supports you when you’re not feeling okay?"
+        ],
+        "sccs_logic": "+2 for emotional awareness, +3 for accessing support or health action",
+        "triggers": ["every 3 days", "after negative emotional tone detected"]
+    },
+    {
+        "name": "Legal & Justice",
+        "purpose": "Address supervision, court, paperwork, and related stress",
+        "sample_prompts": [
+            "Any upcoming court or PO appointments this week?",
+            "What’s the most frustrating part of your justice involvement right now?",
+            "Need help figuring out any paperwork, fines, or documents?"
+        ],
+        "sccs_logic": "+2 for honesty, +3 for resolution progress (e.g. completed appt, resolved barrier)",
+        "triggers": ["weekly if on parole", "new missed check-in", "flagged PO comment"]
+    },
+    {
+        "name": "Relationships",
+        "purpose": "Explore support networks, conflicts, family connections",
+        "sample_prompts": [
+            "Who’s been in your corner lately?",
+            "Any tension or breakdowns in relationships this week?",
+            "Want to work on trust, boundaries, or communication?"
+        ],
+        "sccs_logic": "+2 for self-awareness, +3 for healthy boundary action or reconnection",
+        "triggers": ["every 5 days", "post-crisis event", "user journaling signal"]
+    }
+]
+
+
+### 🧱 Supabase/Postgres Schema (dbdiagram-style pseudocode)
+
+# Table: users
+# - id (uuid)
+# - name
+# - onboarding_date
+
+# Table: reflections
+# - id (uuid)
+# - user_id (FK -> users.id)
+# - domain (e.g. 'Housing', 'Health')
+# - reflection_text (text)
+# - tone (nullable string)
+# - created_at (timestamp)
+# - sccs_points_awarded (integer)
+# - action_step (nullable string)
+
+# Table: goals
+# - id (uuid)
+# - user_id (FK -> users.id)
+# - goal_title (text)
+# - domain (nullable string)
+# - created_at (timestamp)
+# - active (boolean)
+
+# Table: sccs_log
+# - id (uuid)
+# - user_id (FK -> users.id)
+# - category (text)
+# - description (text)
+# - points (integer)
+# - source (e.g. 'SIAni session', 'manual entry', 'referral completed')
+# - timestamp
+
+# Table: life_events
+# - id (uuid)
+# - user_id (FK)
+# - event_type (e.g. 'shelter move', 'missed PO appt', 'emotional flag')
+# - notes (text)
+# - created_at
+
+# Table: ai_generated_summaries
+# - id (uuid)
+# - user_id (FK)
+# - reflection_ids (array of FK -> reflections.id)
+# - summary_text (text)
+# - created_at (timestamp)
+
+# Table: rewards
+# - id (uuid)
+# - user_id (FK)
+# - type (e.g. 'insight', 'encouragement', 'SIAni message')
+# - related_sccs_log (FK)
+# - message (text or json)
+# - delivered_at (timestamp)
+
+

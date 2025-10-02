@@ -1,0 +1,87 @@
+
+🛠️ Start completely fresh — no reused broken code. Build a voice-first, luxury AI wellness companion named SIANI, using the already-uploaded fonts, portrait, icons, and Supabase backend. Everything must be mobile-optimized and Apple-grade in polish and simplicity.
+✅ Use ONLY the uploaded assets — do not generate or substitute images, fonts, or icons.
+✅ The project is already connected to Supabase. Use it exclusively for ALL data operations.
+✅ Use existing Supabase tables when possible — do not create duplicates.
+🔧 CORE FEATURES (All Must Work):
+1. ✅ Voice-Only AI Chat
+
+Tap once to begin continuous conversation
+Uses Web Speech API (or compatible voice tech)
+No visible chat bubbles/text
+SIANI portrait centered, pulsing glow when speaking
+WEALTH font only for SIANI’s name
+2. ✅ Mood Tracker + Insight Dashboard
+
+User taps on mood SVG (from provided set)
+Save mood entry to Supabase with user + timestamp
+Show visual feedback (glow, animation)
+Dashboard must include mood patterns over:
+Week (7 days)
+Month (calendar grid)
+Quarter & Year (trend or bar charts)
+Use only Supabase data for all mood displays
+Mobile-first, glassmorphic UI
+3. ✅ Daily Action & Reflection Flow
+
+Each day: user enters 3 custom action steps
+As they complete each, they check it off to earn points
+At night: user is prompted to reflect on:
+1 thing they’re grateful for
+1 thing that went well
+1 thing they’d improve and how
+Store all data in Supabase under appropriate tables
+Persisted by day, linked to user
+4. ✅ Care Team System (Dynamic)
+
+Show all assigned care team members in Support tab
+When a user interacts with a resource (uses or rates it):
+Add the corresponding org/person to the Care Team in Supabase
+Include name, role, org, and date added
+Data must be shown dynamically from Supabase only
+5. ✅ Resource Engine + Rating System
+
+Deliver user resources based on mood/goal context
+Each resource must show:
+Title, description, org, person, average rating, count
+User can submit 1–5 star rating (+ optional short review)
+Rating updates are stored in Supabase and update the average
+When user rates a resource, auto-add that provider to Care Team
+6. ✅ CHW Messaging Interface
+
+1:1 secure chat with assigned Community Health Worker
+Show timestamps, allow replies
+Must use Supabase (real-time or polling)
+Mobile-first, styled like SIANI voice UI
+7. ✅ Calendar + Appointment Reminders
+
+Show a calendar view (weekly/monthly)
+Pull scheduled appointments or reminders from Supabase
+Allow users to:
+View upcoming events
+Get reminder popups (e.g., “You have a session at 3PM”)
+Add/update/delete appointments if permitted
+Calendar must update in real time and match SIANI design
+This calendar view is part of the "Schedule" tab in the nav bar
+🔐 DATABASE REQUIREMENTS
+
+Use only Supabase for all reads/writes
+DO NOT use localStorage or browser-only persistence
+Use existing Supabase tables wherever possible — no duplications
+If a required table does not exist, create it with appropriate schema
+All data (mood logs, action steps, reflections, ratings, care team, messages, appointments) must be stored, updated, and retrieved from Supabase
+Errors must be gracefully handled and reported in-app
+🎨 UI/UX RULES
+
+Design must match Apple standards: minimal, glassmorphic, clean
+Use uploaded portrait, font, icons only — no emojis or placeholders
+All screens must be mobile-responsive and preview correctly inside and outside Replit browser
+Every button and interaction must work — no dead UI elements
+💬 Once complete, show working proof for:
+
+✅ Voice chat with pulsing glow
+✅ Mood insights dashboard
+✅ Daily steps + reflection
+✅ CHW chat
+✅ Resource rating + care team expansion
+✅ Appointment calendar with Supabase events

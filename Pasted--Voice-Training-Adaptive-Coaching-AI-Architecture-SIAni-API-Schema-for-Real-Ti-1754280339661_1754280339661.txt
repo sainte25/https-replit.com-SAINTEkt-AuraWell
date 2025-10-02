@@ -1,0 +1,126 @@
+---
+
+✅ **Voice Training + Adaptive Coaching AI Architecture (SIAni)**
+
+### 🌐 API Schema for Real-Time SCCS Dashboard Population
+```json
+POST /sccs/update
+{
+  "user_id": "string",
+  "domain": "housing|employment|health|...",
+  "timestamp": "ISO-8601",
+  "score_delta": +4,
+  "reason": "Completed first job interview",
+  "emotional_tone": "hopeful",
+  "reflections": ["Felt nervous but proud I showed up.", "I’m doing this for my daughter."],
+  "flags": ["first_time_event", "potential_match_partner_support"]
+}
+```
+
+**GET /sccs/dashboard/:user_id** → Returns user’s live SCCS data: 
+- Score over time by domain
+- Voice-based tone indicators
+- Major emotional wins + insights
+- Linked referrals and tasks
+
+---
+
+🎧 **Audio Training Samples / Synthesis Modeling**
+
+**SIAni Voice Qualities:**
+- Tempo: ~85–100 words per minute (calm, paced)
+- Pitch: Mid-to-low tone; soothing but alert
+- Cadence: Balanced between guiding and listening
+- Style Notes: Feels like a trusted older sibling or coach
+
+**Training Data Structure:**
+```json
+{
+  "sample_id": "siani_greeting_01",
+  "script_text": "Hey. I'm really glad you’re here. Let’s take this one step at a time, together.",
+  "emotion": "grounding",
+  "target_pacing": "slow",
+  "inflection_model": "reassuring"
+}
+```
+
+Use this to train synthesis engine (e.g., ElevenLabs, PlayHT, or custom model).
+
+---
+
+🧠 **Mood Detection from Voice Sentiment + Pacing**
+
+Real-time detection (client-side or edge inference):
+- **Pacing:**
+  - <80 wpm → potentially low energy, sadness, overwhelm
+  - >120 wpm → stress, anxiety, urgency
+- **Volume:**
+  - Quiet = withdrawal or fear
+  - Raised = frustration or activation
+- **Tone Sentiment:**
+  - Negative polarity = shame, doubt, defeat
+  - Mixed/neutral = reflection or uncertainty
+  - Positive = confidence, hope, clarity
+
+**Sample Output:**
+```json
+{
+  "user_id": "abc123",
+  "session_id": "discovery_0729",
+  "mood_classification": "anxious-but-engaged",
+  "suggested_action": "slow tempo; affirm safety; offer pause option",
+  "last_positive_inflection": "described dream to start a landscaping business"
+}
+```
+
+Used to:
+- Modify SIAni's voice tempo/style in real time
+- Choose next prompt tone (motivating vs grounding)
+- Trigger referrals or support if certain thresholds are hit
+
+---
+
+🌲 **Smart Domain Branching Map (Expanded)**
+Each domain dynamically branches based on prior input, tone, and unmet needs. Prompts adapt in real-time.
+
+**Domains & Branching Triggers:**
+
+1. **Personal Info & ID Docs**
+   - Trigger: missing ID or contact info → flag for docs support
+2. **Justice System History**
+   - Trigger: recent release or upcoming court date → schedule legal check-in
+3. **Immediate Needs (72 hrs)**
+   - Trigger: unsheltered, no phone, no meds → emergency triage
+4. **Goal Orientation**
+   - Trigger: unclear goals → walk through goal scaffolding exercise
+5. **Housing**
+   - Trigger: couch surfing, unsafe, past eviction → housing + legal support referral
+6. **Employment**
+   - Trigger: no work + ready → fast-track job match
+7. **Education & Skills**
+   - Trigger: interest in GED or learning → adult ed referral
+8. **Mental Health & Recovery**
+   - Trigger: no support + high stress tone → peer navigator match
+9. **Physical Health**
+   - Trigger: chronic condition + no PCP → clinic referral
+10. **Family & Relationships**
+    - Trigger: trying to reunify or repair ties → coaching & family support
+11. **Legal Needs**
+    - Trigger: active supervision + fees → legal aid + payment planning
+12. **Financial Wellness**
+    - Trigger: no account + debt worry tone → budgeting workshop referral
+13. **Life Skills & Mobility**
+    - Trigger: phone only, no transit → device access + travel orientation
+14. **Community & Identity**
+    - Trigger: lack of belonging tone → spark mentoring or org connection
+15. **Risk/Protective Factors**
+    - Trigger: signs of burnout or high stress tone → emotional coaching flow
+16. **Consent + Care Plan**
+    - Trigger: completion → recap + aligned goals summary + SCCS summary
+
+Each branch routes to:
+- A tone-aware coaching-style script
+- Referral tagging logic
+- Real-time SCCS scoring logic
+
+Let me know if you'd like each of these modular branches scripted or converted into Bubble workflows / Supabase schema next.

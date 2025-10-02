@@ -1,0 +1,138 @@
+---
+
+✅ **SIAni Replit Agent Implementation: Full Build**
+
+### 🧠 `.agent()` Wrapper for Replit
+```js
+const SIAni = agent({
+  name: "SIAni",
+  voice: "empowered",
+  input: VoiceInput(),
+  output: VoiceOutput({ pace: "steady", tone: "coaching", warmth: "high" }),
+  memory: ConversationalMemory({ store: "Supabase", context_length: 7 }),
+  functions: [
+    getCurrentGoal,
+    saveReflection,
+    scoreSCCS,
+    triggerReferral,
+    suggestNextPrompt,
+    routeToCareTeam
+  ],
+  onInit: () => greetWithVisioning(),
+  onUserUtterance: (input) => handleDomain(input),
+  fallback: "Let’s pause and take a breath. Can I help clarify or shift focus?"
+});
+```
+
+---
+
+### 🗣️ Voice Synthesis JSON — Empowered Coach Style
+```json
+{
+  "voice_profile": {
+    "tone": "aspirational",
+    "cadence": "intentional",
+    "volume": "confident-soft",
+    "pitch": "mid-low",
+    "persona_tags": ["trusted peer", "resilient coach", "grounded presence"]
+  },
+  "training_phrases": [
+    {
+      "id": "siani_start_01",
+      "text": "You made it here. That already says a lot. Let’s get clear on what you want next.",
+      "emotion": "affirming",
+      "pacing": "slow",
+      "inflection": "upbeat"
+    },
+    {
+      "id": "goal_set_01",
+      "text": "If you could focus on just one goal right now — something that shifts everything — what would it be?",
+      "emotion": "visioning",
+      "pacing": "medium",
+      "inflection": "curious"
+    }
+  ]
+}
+```
+
+---
+
+### 🌐 Supabase SQL Schema (core tables)
+```sql
+CREATE TABLE users (
+  id uuid PRIMARY KEY,
+  full_name TEXT,
+  preferred_name TEXT,
+  phone TEXT,
+  email TEXT
+);
+
+CREATE TABLE reflections (
+  id uuid PRIMARY KEY,
+  user_id uuid REFERENCES users(id),
+  domain TEXT,
+  reflection_text TEXT,
+  emotional_tone TEXT,
+  timestamp TIMESTAMP DEFAULT now(),
+  sccs_points INTEGER,
+  referral_triggered BOOLEAN DEFAULT false
+);
+
+CREATE TABLE goals (
+  id uuid PRIMARY KEY,
+  user_id uuid REFERENCES users(id),
+  goal_text TEXT,
+  domain TEXT,
+  timeframe TEXT,
+  progress_status TEXT DEFAULT 'new',
+  last_check_in TIMESTAMP
+);
+
+CREATE TABLE sccs_scores (
+  id uuid PRIMARY KEY,
+  user_id uuid REFERENCES users(id),
+  domain TEXT,
+  score INTEGER,
+  timestamp TIMESTAMP DEFAULT now(),
+  source TEXT
+);
+```
+
+---
+
+### ⚙️ JSON Referral Trigger Logic
+```json
+{
+  "rules": [
+    {
+      "domain": "housing",
+      "condition": "no_stable_housing",
+      "tone": ["stressed", "fearful"],
+      "trigger": "emergency_housing_referral"
+    },
+    {
+      "domain": "employment",
+      "condition": "actively_looking",
+      "tone": ["hopeful", "determined"],
+      "trigger": "job_readiness_bundle"
+    }
+  ]
+}
+```
+
+---
+
+### 📱 Bubble / Customer.io Logic Flow (Simplified)
+- **Trigger:** `new_reflection_submitted`
+- **Conditions:** if `tone = discouraged` and `domain = education`
+- **Actions:**
+  - Send motivational audio nudge via push
+  - Queue follow-up voice prompt: “Want to explore small steps toward that goal together?”
+  - Trigger SCCS update
+
+---
+
+Let me know when you're ready to:  
+✅ Add domain-based branching map  
+✅ Link this to frontend Figma screen logic  
+✅ Simulate a sample SIAni session end-to-end

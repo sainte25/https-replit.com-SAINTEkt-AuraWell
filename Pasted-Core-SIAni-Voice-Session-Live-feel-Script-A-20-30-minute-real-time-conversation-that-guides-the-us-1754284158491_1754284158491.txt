@@ -1,0 +1,56 @@
+Core SIAni Voice Session (Live-feel Script) A 20–30 minute real-time conversation that guides the user through identity, strengths, barriers, vision, and goal-setting. Not clinical. Not judgmental. Fully voice-based and emotionally intelligent.
+✅ Modular Voice Prompt Library by Domain Each domain includes:
+✨ Spark prompts (open-ended, forward-moving questions)
+🔁 Empathy loops (reaffirm, reflect, re-ask if needed)
+🎯 SCCS-linked response capture
+🏠 Housing
+“What kind of space would feel safe and stable for you right now?”
+“Tell me about where you’re sleeping these days. Is that working?”
+“If we could remove one housing stress this week, what would it be?”
+💼 Employment
+“What kind of work would make you feel proud?”
+“Have you had a job you enjoyed before?”
+“Would working again feel like a relief or a pressure right now?”
+🧠 Mental Health
+“What helps you stay grounded when things get heavy?”
+“Is there anyone who helps you feel calm or supported?”
+“If you had a safe place to talk, what would you want to share?”
+👨‍👩‍👧‍👦 Family / Relationships
+“Who are the people you most want to show up for?”
+“Any relationships that are complicated but still matter to you?”
+“If you could reconnect with someone, who comes to mind?”
+✅ Domain Reflection Map (Triggers + Cadence) Each domain is revisited based on:
+Time since last session (e.g. 3-day, 7-day, 30-day)
+Emotional tone detected (stress, breakthrough, withdrawal)
+Event triggers (housing change, legal hearing, job loss, win)
+Examples:
+If user expresses high stress + housing instability → prompt housing domain again with new emotional framing
+If user completes job interview → employment domain follow-up with confidence + next-step framing
+✅ SCCS Logic Tied to Voice Emotional Wins
+Self-acknowledged progress → +15 SCCS points
+Sharing vulnerability → +10
+Naming a specific goal for the first time → +20
+Showing up 3 days in a row → bonus multiplier
+✅ Supabase / Postgres .SQL Schema Tables: users
+id, name, avatar, enrollment_date, last_seen
+reflections
+id, user_id, domain, voice_transcript, tone_score (0–100), detected_emotion, timestamp
+goals
+id, user_id, goal_text, domain, status (draft, active, achieved), created_at
+sccs_points
+id, user_id, source (reflection, milestone, peer_share), points, notes, timestamp
+referrals
+id, user_id, domain, trigger, partner_org, status, sent_at
+✅ JSON Referral Logic (Tone + Domain) { "if": [ {"domain": "housing", "tone": "stressed"}, {"domain": "mental_health", "tone": "withdrawn"} ], "then": { "trigger_referral": true, "referral_type": "supportive_housing", "urgency": "high", "notes": "User expressed acute stress, unsheltered, no support system." } }
+✅ Replit Agent Logic (Skeleton)
+Wake on session start (via voice)
+Maintain memory across domains
+Log voice input → speech-to-text → tone/emotion analysis
+Store structured data in Supabase tables
+Trigger referral or reward flow when logic matches
+Feed summaries to daily dashboards or SCCS printable reports
+✅ Optional: Bubble or Supabase Workflow Triggers
+New reflection → trigger domain check-in drip
+High emotion score → send alert to peer mentor dashboard
+SCCS milestone → unlock new goal badge, generate printable QR summary
+

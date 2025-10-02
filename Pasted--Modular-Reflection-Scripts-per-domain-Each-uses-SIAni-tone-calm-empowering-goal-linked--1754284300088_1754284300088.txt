@@ -1,0 +1,48 @@
+# 🧠 Modular Reflection Scripts (per domain)
+# Each uses SIAni tone: calm, empowering, goal-linked, SCCS aware
+# Outputs: structured journaling entry, optional action step, SCCS points
+
+modular_reflections = {
+    "Housing": {
+        "prompts": [
+            "Tell me about your housing situation right now. Is it working for you, or not quite?",
+            "If you could change one thing about where you live or how you feel there, what would it be?",
+            "What’s a small move you could make this week toward more stability or comfort?"
+        ],
+        "sccs_scoring": "+2 for clarity, +3 if action is defined (e.g. applied for apartment, reached out to shelter)"
+    },
+    "Employment": {
+        "prompts": [
+            "What’s one job or hustle you’ve done that made you feel capable?",
+            "What does ‘a good job for you’ look like right now — something realistic but still satisfying?",
+            "Want to try one step this week — like brushing up your resume, or asking about work?"
+        ],
+        "sccs_scoring": "+2 for insight, +3 if milestone attempted (resume, interview, outreach)"
+    },
+    "Health": {
+        "prompts": [
+            "How’s your energy been lately — physically or mentally?",
+            "What helps when you're feeling overwhelmed or off balance?",
+            "Any small health thing you’ve been putting off that might be worth addressing this week?"
+        ],
+        "sccs_scoring": "+2 for emotional check-in, +3 for health-positive action"
+    },
+    "Legal": {
+        "prompts": [
+            "Any court stuff, supervision, or paperwork causing stress this week?",
+            "Anything confusing or unclear that you'd want help understanding or tackling?",
+            "What’s one legal thing you could check off this week, even if it’s small?"
+        ],
+        "sccs_scoring": "+2 for transparency, +3 if engagement step is taken (e.g. appointment, doc upload)"
+    },
+    "Relationships": {
+        "prompts": [
+            "Who’s been showing up for you lately — even in small ways?",
+            "Any relationships feeling strained or heavy right now?",
+            "Want to make a move toward healing or strengthening one of them this week?"
+        ],
+        "sccs_scoring": "+2 for reflection, +3 if boundary/connection step is taken"
+    }
+}
+
+

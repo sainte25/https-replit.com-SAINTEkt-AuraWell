@@ -1,0 +1,59 @@
+# 🧪 Realistic User Journey QA Samples (Emotional + Behavioral Range)
+# For testing SIAni tone, flow, reward logic, and SCCS scoring impact
+
+user_journeys = [
+    {
+        "name": "Tasha (high trauma, high insight)",
+        "context": "Recently evicted, managing PTSD, trying to regain custody of kids",
+        "core_session": {
+            "identity": "I'm a survivor and a mother, even when it doesn’t look like it",
+            "emotion": "grief, guilt, determination",
+            "goal": "Get stable housing to get my daughters back",
+            "barriers": ["CPS involvement", "no income", "panic attacks"],
+            "first_step": "Call the shelter even if I’m scared they’ll judge me"
+        },
+        "sccs_score": 13,
+        "reward_response": "SIAni reflects her courage and reframes her fear as strength"
+    },
+    {
+        "name": "DeShawn (skeptical, guarded, still showing up)",
+        "context": "Has violated parole before, doesn’t trust systems, lives with cousin",
+        "core_session": {
+            "identity": "I don’t know who I am right now — just trying to stay out the way",
+            "emotion": "numb, tired",
+            "goal": "Figure out a real hustle that’s not gonna get me locked",
+            "barriers": ["parole rules", "transportation", "sleeping on couch"],
+            "first_step": "Look into online IT classes friend mentioned"
+        },
+        "sccs_score": 9,
+        "reward_response": "SIAni validates effort without false hype — focuses on forward motion"
+    },
+    {
+        "name": "Monica (early-stage recovery, hopeful but wobbly)",
+        "context": "Sober for 6 weeks, working part-time, avoids triggering people",
+        "core_session": {
+            "identity": "Trying to rebuild who I was before everything fell apart",
+            "emotion": "hope, anxiety, pride",
+            "goal": "Stay sober and eventually help other women like me",
+            "barriers": ["cravings", "ex’s texts", "shame"],
+            "first_step": "Journal every morning with SIAni and re-read it before I leave the house"
+        },
+        "sccs_score": 15,
+        "reward_response": "SIAni offers an uplifting affirmation and reflects commitment to change"
+    },
+    {
+        "name": "Rico (non-responsive, triggered)",
+        "context": "Recently out, SIAni session triggered memory of past abuse by PO",
+        "core_session": {
+            "identity": "N/A",
+            "emotion": "shut down",
+            "goal": "N/A",
+            "barriers": ["trust trauma", "hypervigilance"],
+            "first_step": "N/A"
+        },
+        "sccs_score": 0,
+        "reward_response": "SIAni gently pauses, affirms emotional safety, logs trigger, and routes optional CHW follow-up flag"
+    }
+]
+
+

@@ -1,0 +1,89 @@
+---
+
+✅ **SIAni Full Replit Agent Deployment Guide**
+
+### 1. 🎯 Replit `.agent()` Wrappers for Deployment
+```python
+from replit import agent
+
+@agent.function()
+def start_session(user_id):
+    # Start core discovery session
+    return launch_voice_script(user_id, script_id="core_discovery")
+
+@agent.function()
+def handle_reflection(user_id, domain, tone, content):
+    # Store reflection and update SCCS
+    log_reflection(user_id, domain, tone, content)
+    update_sccs_score(user_id, domain, tone)
+    return suggest_next_prompt(user_id, domain, tone)
+
+@agent.function()
+def get_dashboard(user_id):
+    # Fetch SCCS dashboard for display
+    return fetch_sccs_dashboard(user_id)
+```
+
+---
+
+### 2. 🎙️ Voice Synthesis Training Set
+
+**Persona:** Confident, aspirational guide. Tone of someone you trust to take you seriously.
+
+**Training JSON:**
+```json
+[
+  {
+    "sample_id": "core_intro_01",
+    "script_text": "Hey. You made it. I'm SIAni — your accountability partner. Let's start by thinking big.",
+    "emotion": "confident",
+    "target_pacing": "medium",
+    "inflection_model": "encouraging"
+  },
+  {
+    "sample_id": "core_goals_01",
+    "script_text": "If anything were possible — no limits — what would you love to build in the next 90 days?",
+    "emotion": "expansive",
+    "target_pacing": "slow",
+    "inflection_model": "visionary"
+  },
+  {
+    "sample_id": "reframe_barriers_01",
+    "script_text": "Even that challenge? It's valid. But it’s not permanent. Let’s figure out what’s next.",
+    "emotion": "resilient",
+    "target_pacing": "medium",
+    "inflection_model": "grounded"
+  }
+]
+```
+Can be trained via PlayHT, ElevenLabs, or Whisper API with style presets.
+
+---
+
+### 3. 💡 Bubble / Customer.io Workflow Logic
+
+**Trigger:** User launches SIAni or receives voice reflection prompt
+
+**Workflow Steps:**
+1. Trigger SIAni agent API `/start_session(user_id)`
+2. Stream voice interaction to user via Bubble audio player
+3. Record voice -> transcribe via OpenAI Whisper
+4. Send transcription → `handle_reflection(user_id, domain, tone, content)`
+5. SCCS is updated → Customer.io tag = `"SCCS_UPDATE_{domain}"`
+6. If SCCS delta is high or tone = "hopeless":
+   - Trigger referral via `/create_referral()`
+   - Schedule check-in prompt within 24h
+7. If milestone hit → push reward screen & visual summary
+
+**Bubble Actions:**
+- Audio streaming + capture plugin
+- Supabase connector (GET/POST)
+- API connector (Replit Agent)
+- Visual updates to dashboard views
+
+Let me know if you’d like:
+- 🎧 More audio training samples
+- 📲 Figma-to-Bubble UI export
+- 📈 Admin tools to score agent performance
+
+---

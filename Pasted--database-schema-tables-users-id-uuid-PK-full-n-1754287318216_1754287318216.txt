@@ -1,0 +1,115 @@
+{
+  "database_schema": {
+    "tables": {
+      "users": {
+        "id": "uuid (PK)",
+        "full_name": "text",
+        "preferred_name": "text",
+        "dob": "date",
+        "phone": "text",
+        "email": "text",
+        "preferred_contact_method": "text",
+        "created_at": "timestamp"
+      },
+      "intake_responses": {
+        "id": "uuid (PK)",
+        "user_id": "uuid (FK to users.id)",
+        "domain": "text",  // e.g., 'employment', 'housing'
+        "field": "text",     // e.g., 'goal_30_days'
+        "response": "text",
+        "referral_tag": "text[]",  // tags like ['needs_id', 'employment_referral']
+        "severity": "text",        // optional: low, medium, high
+        "timestamp": "timestamp"
+      },
+      "referrals": {
+        "id": "uuid (PK)",
+        "user_id": "uuid (FK to users.id)",
+        "referral_type": "text",
+        "partner_organization": "text",
+        "status": "text",  // sent, pending, accepted, declined
+        "date_sent": "timestamp"
+      }
+    }
+  },
+
+  "sample_user_session_output": {
+    "user_id": "abc123-uuid",
+    "full_name": "Tierra Brooks",
+    "intake_responses": [
+      {
+        "domain": "employment",
+        "field": "goal_30_days",
+        "response": "Apply to 3 landscaping jobs",
+        "referral_tag": ["employment_referral"],
+        "severity": "medium"
+      },
+      {
+        "domain": "housing",
+        "field": "current_state",
+        "response": "Currently couch surfing with cousin, no lease",
+        "referral_tag": ["no_stable_housing", "landlord_mediation"],
+        "severity": "high"
+      },
+      {
+        "domain": "mental_health",
+        "field": "support_needs",
+        "response": "Wants to restart therapy but doesn’t know where to go",
+        "referral_tag": ["mental_health_support"]
+      }
+    ]
+  },
+
+  "sample_frontend_mockup": {
+    "screen": "Goal Mapping - Employment",
+    "siani_prompt": "Let’s talk about work—past, present, future. What kind of work have you done before, and what kind of job would light you up now, if anything was possible?",
+    "user_typing_placeholder": "e.g., I used to do warehouse work but I’d love to start my own moving company.",
+    "progress_bar": "Step 6 of 16",
+    "visual_elements": ["soft background animation", "typing bubble", "audio option"],
+    "interaction_buttons": ["Next", "Skip", "Pause"]
+  },
+
+  "conversation_script_employment": [
+    {
+      "siani": "Let’s talk about work—past, present, future. What kind of work have you done before?",
+      "follow_up": "And if you could do anything next, what would that be—no limits."
+    },
+    {
+      "siani": "Are you currently working right now? If not, are you open to looking for something?",
+      "empathy_loop": "Totally understandable if it feels hard to jump back in. We can explore low-pressure options if that helps."
+    },
+    {
+      "siani": "What kind of support would help—resume help, gear, clothes, transportation?",
+      "spark": "Imagine walking into a job you actually like. What would need to happen for that to be real?"
+    },
+    {
+      "siani": "What’s one small step you’d be proud to take this week toward your work goal?"
+    }
+  ]
+}
+
+✅ Done! I’ve created a new document in the canvas: “Siani Intake Schema And Sample Assets” that includes:
+
+✅ Supabase / Airtable Schema
+users, intake_responses, and referrals tables
+Referral tags, severity scoring, and domain tracking
+Designed for Glances-style dashboard views
+
+✅ Sample Output
+From a real user flow (e.g. Tierra Brooks):
+Goals
+Current barriers
+Referral triggers + severity levels
+
+✅ Frontend Screen Mockup
+What the SIAni experience could look like during “Goal Mapping: Employment”:
+Soft animations, conversational placeholder text
+“Next / Skip / Pause” options
+Accessibility-forward (includes typing + audio bubble)
+
+✅ Conversation Script Sample (Employment)
+Natural sequencing of questions
+Includes:
+Reflection openers
+Empathy loops (for hesitation)
+Growth sparks (“What would it feel like if…”)
+Small-step activation

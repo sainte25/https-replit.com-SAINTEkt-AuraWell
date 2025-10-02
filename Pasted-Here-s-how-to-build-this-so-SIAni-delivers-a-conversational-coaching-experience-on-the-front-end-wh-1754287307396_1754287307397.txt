@@ -1,0 +1,77 @@
+Here’s how to build this so SIAni delivers a conversational coaching experience on the front end, while the backend captures structured data that feeds your Glances-style dashboard for staff and partner access.
+
+🎯 What You’re Building
+🔊 Frontend (SIAni’s UX):
+Conversational flow that feels like a coaching/journaling exercise
+Divided into four core phases:
+Self-Discovery
+Goal Mapping
+Vision Activation
+Support & Consent
+User interacts through natural dialogue, not forms
+💾 Backend (Structured Intake Data):
+Stores every reflection, goal, and response as structured records
+Auto-tags referral needs and urgency
+Feeds Glances-style snapshot UI with:
+“What’s their top goal?”
+“What do they need now?”
+“Who’s helping them?”
+“Where are they stuck?”
+
+🧠 Conversation-to-Data Model
+Let’s take one domain as an example:
+🎯 Example: Employment & Income (Phase 2: Goal Mapping)
+SIAni says (frontend):
+“Let’s talk about work—past, present, future.
+What kind of work have you done before?
+And what kind of job would light you up now, if anything was possible?”
+(user answers)
+“Got it. Are you looking for work right now?”
+“Do you need tools, transportation, or maybe a resume?”
+“Let’s map it—what’s one small step you could take this week?”
+
+What gets stored (backend):
+json
+CopyEdit
+{
+  "domain": "employment",
+  "responses": {
+    "past_work": "landscaping and roofing",
+    "dream_job": "own my own landscaping company",
+    "currently_looking": true,
+    "barriers": ["needs_tools", "no_resume"],
+    "goal_30_days": "Apply for 2 contracts and get equipment support",
+    "referral_tags": ["employment_support", "tools_needed", "resume_help"]
+  }
+}
+
+
+What shows up in Glances UI:
+Work: Wants to start landscaping biz.
+30-Day Goal: Get 2 contracts + support with tools.
+Barriers: No resume, needs gear.
+Referral Sent: [Goodwill Tools Program] on Aug 5
+
+🧩 Full Architecture (Simplified)
+Layer
+What it Does
+SIAni UX
+Conversational prompts + responses
+Session Engine
+Tracks phase, captures responses, handles skips & pauses
+Storage Layer
+Saves by domain (housing, legal, etc.) with metadata & tags
+Rules Engine
+Triggers referral alerts based on logic (“no housing” etc.)
+Glances API
+Summarizes key needs, goals, supports in one screen snapshot
+
+
+🔄 Your Next Steps
+Would you like me to generate:
+ A Phase 1 conversation script with prompts + backend keys
+ The JSON schema for all 16 intake categories mapped to conversational keys
+ A Supabase or Airtable schema for storing the intake behind the scenes
+ A sample Glances dashboard layout based on real user responses
+Just say the word and I’ll build the next piece.
+
